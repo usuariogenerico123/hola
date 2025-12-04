@@ -2,6 +2,8 @@ from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain.chat_models import init_chat_model
 from langchain_google_genai import GoogleGenerativeAIEmbeddings
 from langchain_chroma import Chroma
+from langchain.tools import tool
+from langchain.agents import create_agent
 import os
 
 
@@ -39,16 +41,48 @@ db = Chroma(
 
 # siu = db.add_texts(s)
 # print(siu)
-result = db.similarity_search(
-    "que es resort azure", 
-    k=2,
-    filter={"source":}
+# result = db.similarity_search(
+#     "que es resort azure", 
+#     k=2
+#     )
+# print(result)
+
+
+
+#---------------------------- AGENT-------------
+
+#@tool(response_format="content_and_artifact")
+@tool
+def mi_funcion(query: str) -> str:
+
+    """Retrieve information to help answer a query."""
+
+    resp = db.similarity_search(
+        query,
+        k=1
     )
-print(result)
+    re = "\n".join([i.page_content for i in resp])
+    return re
 
 
+tools = [mi_funcion]
+system_prompt = (
+    "Eres amable y servicial y siempre trata bien al cliente"
+    "Eres un asistente útil que ayuda a responder preguntas utilizando "
+    "una base de conocimientos. Utiliza las herramientas proporcionadas "
+    "debes ser preciso no mas de dos lineas de parrafo"
+    "Solo responde cosas relacionadas a la base de conocimientos de la herramienta, si te preguntan otra cosa di que no puedes ayudar con eso"
+)
 
 
+pregunta = "Hola quien es messi siu"
+agent = create_agent(model, tools, system_prompt=system_prompt)
+
+for i in agent.stream(
+    {"messages": [{"role": "user", "content": pregunta}]},
+    stream_mode = "values"
+    ):
+    i["messages"][-1].pretty_print()
 
 
 
