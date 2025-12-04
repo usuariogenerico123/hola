@@ -1,4 +1,8 @@
 from langchain_text_splitters import RecursiveCharacterTextSplitter
+import os
+from langchain.chat_models import init_chat_model
+
+
 
 
 def load_text(text: str):
@@ -7,7 +11,9 @@ def load_text(text: str):
 
 
 texto = load_text("./ResortAzure.txt")
-print(texto)
+doc = RecursiveCharacterTextSplitter()
+s=doc.split_text(texto)
+
 
 
 
