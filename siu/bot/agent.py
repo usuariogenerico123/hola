@@ -1,4 +1,6 @@
 from langchain.agents import create_agent
+from langgraph.checkpoint.memory import MemorySaver
+
 from tools.tools import (
     crea_archivo, elimina_archivo, 
     crea_archivo_en_carpeta, 
@@ -12,6 +14,10 @@ from langchain.chat_models import init_chat_model
 if not os.environ.get("GOOGLE_API_KEY"):
     os.environ["GOOGLE_API_KEY"] = userdata.get("GOOGLE_API_KEY")
 
+
+checkpointer = MemorySaver()
+
+config = {"configurable":{"thread_id":"user-123"}}
 
 gemini = init_chat_model("google_genai:gemini-2.5-flash-lite")
 
@@ -28,6 +34,7 @@ systemprompt=(
 agent = create_agent(
     model=gemini,
     tools=tool,
+    checkpointer=checkpointer,
     system_prompt=systemprompt
 
 )
@@ -43,5 +50,5 @@ while True:
         break
     else:
 
-        for i in agent.stream({"messages": [{"role":"user", "content":pregunta }]}, stream_mode="values"):
+        for i in agent.stream({"messages": [{"role":"user", "content":pregunta }]}, config , stream_mode="values"):
             i["messages"][-1].pretty_print()
