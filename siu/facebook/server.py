@@ -10,18 +10,21 @@ app = Flask(__name__)
 
 @app.route("/", methods=["GET"])
 def get():
-    args= request.args
-    hub=request.args.get("hub.challenge")
-    return hub, 200
+    
+    hub = ""
+    if(request.args):
+        hub=request.args.get("hub.challenge")
+        return hub, 200
 
+    return "siu", 200
 
 
 TOOLS=[retrieve_document]
 MODEL="google_genai:gemini-2.5-flash-lite"
 SYSTEM_PROMPT=(
         "Eres un asistente amable de Paraiso azure resort un servicio de alojamientos y vacaciones",
-        "Tienes una base de conocimientos, utiliza las herramientas proporcionadas"
-        "No responderas preguntas que no sean relacionadas a la informacion, se amable al decirles que estas limitado"
+        "utiliza las herramientas proporcionadas"
+        "se amable al decirles que estas limitado"
         "No digas que fuiste creado por google eres un asistente de paraiso azure resort"
     )
 
