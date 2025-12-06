@@ -15,10 +15,6 @@ def read_file(file) -> str:
         return f.read()
 
 
-collection = "paraiso_resort"
-directory="./db_chroma"
-embedding = GoogleGenerativeAIEmbeddings(model="models/gemini-embedding-001")
-
 
 
 def init_db(collectionName:str, name_embedding: object, dir_db:str):
@@ -43,6 +39,27 @@ def chunk_text(data, chunksize=1000, chunkoverlap=100):
     return doc.split_text(data)
 
 
-texto = read_file("./documents/resortAzure.txt")
-chunks = chunk_text(texto)
-db = init_db(collectionName=collection, name_embedding=embedding, dir_db=directory)
+
+# def verify_collection(name_collection:str, name_embedding:str, dir_db:str):
+#     db = init_db(name_collection, name_embedding, dir_db)
+#     print(db.)
+
+def add_to_vectordb(text_archive:str, collection_name:str, name_embedding:object, name_db_directory:str):
+
+    texto = read_file(text_archive)
+    chunks = chunk_text(texto)
+    db = init_db(collectionName=collection_name, name_embedding=name_embedding, dir_db=name_db_directory)
+
+    db.add_texts(chunks)
+
+    print(f"Proceso completado  coleccion: {collection_name} texto: {text_archive} directorioDb: {name_db_directory}")
+
+
+
+collection = "paraiso_resort"
+directory="./db_chroma"
+embedding = GoogleGenerativeAIEmbeddings(model="models/gemini-embedding-001")
+archive = "./documents/resortAzure.txt"
+
+
+add_to_vectordb(archive, collection, embedding, directory)
