@@ -46,7 +46,10 @@ class Agent:
         #print(resp)
         return resp
         
+    def get_tools(self):
+        return self.tools
 
+        
     def __str__(self):
         return f"Agente {self.model} iniciado con exito"
 
