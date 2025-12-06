@@ -31,6 +31,8 @@ def post():
     
     #sendMessage(message, id)
     print(agent)
+    resp = agent.chat(message, id)
+    sendMessage(resp, id)
     print(id + " "+ message)
     return "Hello, World! POST", 200
 

@@ -1,37 +1,51 @@
 from langchain.chat_models import init_chat_model
 from langchain.agents import create_agent
+from langgraph.checkpoint.memory import MemorySaver
+
 import os
 
 if not os.environ.get("GOOGLE_API_KEY"):
     os.environ["GOOGLE_API_KEY"] = userdata.get("GOOGLE_API_KEY")
 
 class Agent:
-    __MODEL:str
-    __SYSTEM_PROMPT:str
-    __tools:list
-
-    def __init__(self, model, _system_prompt=None, _tools :list =None):
+    model:str
+    tools:list
+    agent:str
+    def __init__(self, model, system_prompt=None, tools :list =None):
         self.model = init_chat_model(model)
-        self.__MODEL=model 
-        self.__SYSTEM_PROMPT = _system_prompt
-        self.__tools = _tools
-        self.agent = self.create_agent()
+        self.model=model 
+        self.system_prompt = system_prompt
+        self.tools = tools
+        self.checkpointer = MemorySaver()
+        self.agent = self.__create_agent()
+        
 
 
-    def create_agent(self):
+    def __create_agent(self):
         agent_ia = create_agent(
             model=self.model,
-            tools=self.__tools,
-            system_prompt = self.__SYSTEM_PROMPT
+            tools=self.tools,
+            checkpointer=self.checkpointer,
+            system_prompt = self.system_prompt
         )
 
         return agent_ia
         
+    def chat(self, text:str,  id:str):
+        print("iniciandp chat")
+        
+        config = {"configurable":{"thread_id":id}}
 
-    def 
+        resp = ""
 
+        for i in self.agent.stream({"messages":[{"role":"user", "content":text}]}, config, stream_mode="values"):
+            resp = i["messages"][-1].content
+
+        #print(resp)
+        return resp
+        
 
     def __str__(self):
-        return f"Agente {self.__MODEL} iniciado con exito"
+        return f"Agente {self.model} iniciado con exito"
 
 
