@@ -1,0 +1,147 @@
+Resort Paraíso Azure - Contenido para RAG 
+CHUNK 1: Información General del Resort 
+El Resort Paraíso Azure es un destino de lujo todo incluido ubicado en la Riviera Maya, México. Situado 
+frente a una playa privada de arena blanca, el resort cuenta con 350 habitaciones distribuidas en tres 
+edificios principales. La propiedad se extiende por 15 hectáreas de jardines tropicales. Dirección: 
+Carretera Federal Cancún-Tulum Km 45, Playa del Carmen, Quintana Roo. El aeropuerto internacional 
+más cercano es Cancún (45 minutos en auto). 
+CHUNK 2: Horarios y Servicios Principales 
+Check-in: 3:00 PM | Check-out: 12:00 PM. Recepción abierta 24/7. El resort opera bajo el sistema Todo 
+Incluido Premium. WiFi gratuito en todas las áreas. Servicio de concierge disponible de 7:00 AM a 11:00 
+PM. Estacionamiento gratuito. Servicio de transporte desde/hacia el aeropuerto disponible con costo 
+adicional de $45 USD por trayecto. 
+CHUNK 3: Habitación Deluxe Vista Jardín 
+Habitación de 42m² con cama king o dos camas queen. Capacidad máxima: 3 adultos o 2 adultos + 2 
+niños. Incluye: balcón privado, aire acondicionado, TV de 55 pulgadas, minibar reabastecido 
+diariamente, caja de seguridad, cafetera Nespresso, baño con ducha de lluvia. Tarifa desde $180 USD 
+por noche (ocupación doble). Vista a los jardines tropicales del resort. 
+CHUNK 4: Suite Junior Vista Mar 
+Suite de 65m² con cama king size. Capacidad máxima: 3 adultos o 2 adultos + 2 niños. Incluye: terraza 
+amplia con vista al mar, sala de estar separada, bañera de hidromasaje, amenidades de baño premium, 
+servicio de habitaciones 24h sin costo, minibar premium con bebidas alcohólicas, almohadas de menú, 
+acceso a lounge exclusivo. Tarifa desde $295 USD por noche (ocupación doble). 
+CHUNK 5: Master Suite Frente al Mar 
+Suite de 110m² con cama king size y sofá cama. Capacidad máxima: 4 adultos. Incluye: dos balcones 
+privados con vista panorámica al océano, sala y comedor separados, dos baños completos, jacuzzi 
+privado en terraza, mayordomo personal, check-in privado, desayuno en habitación incluido, servicio de 
+planchado gratuito. Tarifa desde $520 USD por noche (ocupación doble). 
+CHUNK 6: Restaurante Mare Nostrum - Cocina Mediterránea 
+Restaurante especializado en cocina mediterránea con mariscos frescos. Horario: Cena de 6:00 PM a 
+10:30 PM (cerrado domingos). Capacidad: 80 personas. Reservación requerida (se puede hacer en 
+concierge o app del resort). Dress code: casual elegante (pantalones largos y camisa con cuello para 
+hombres, no sandalias). Menú destacado: Paella valenciana, Risotto de mariscos, Branzino al horno. 
+Opciones vegetarianas y veganas disponibles. Incluido en Todo Incluido. 
+CHUNK 7: Restaurante Hacienda Maya - Cocina Mexicana 
+Restaurante buffet con cocina mexicana e internacional. Horario: Desayuno 7:00 AM - 11:00 AM, 
+Almuerzo 12:30 PM - 3:30 PM, Cena 6:00 PM - 10:00 PM. Sin reservación necesaria. Dress code: casual. 
+Estaciones en vivo: tacos, quesadillas, omelettes. Desayuno incluye jugos naturales, frutas tropicales, 
+pan dulce mexicano. Área para niños con opciones adaptadas. Incluido en Todo Incluido. 
+CHUNK 8: Restaurante Sakura - Cocina Japonesa 
+Restaurante de cocina japonesa con chef especializado. Horario: Cena de 6:30 PM a 10:00 PM (cerrado 
+lunes y martes). Capacidad: 45 personas. Reservación obligatoria con 24h de anticipación. Dress code: 
+casual elegante. Menú incluye: sushi, sashimi, teppanyaki, ramen. Barra de sushi con chef en vivo. Menú 
+degustación disponible (suplemento de $35 USD). Opciones sin gluten disponibles. Sake premium con 
+costo adicional. 
+CHUNK 9: Bar Playa Coco Loco 
+Bar ubicado en la playa principal. Horario: 10:00 AM - 6:00 PM. Sin reservación. Especializado en 
+cócteles tropicales y bebidas refrescantes. Ofrece: piña colada, margaritas, mojitos, cervezas nacionales 
+e importadas, smoothies, agua fresca. Snacks ligeros disponibles: nachos, ceviche, guacamole con chips. 
+Todo incluido en el plan all-inclusive. Música ambiente tipo lounge. 
+CHUNK 10: Piscinas del Resort 
+El resort cuenta con tres piscinas: Piscina Principal (climatizada, 1500m², profundidad 1.20m - 2.50m, 
+horario 7:00 AM - 8:00 PM), Piscina Infinity (vista al mar, solo adultos mayores de 18 años, 800m², 
+incluye bar acuático, horario 9:00 AM - 7:00 PM), Piscina Familiar (área infantil con toboganes, 
+profundidad máxima 1.20m, horario 8:00 AM - 6:00 PM). Camastros y toallas incluidos. Salvavidas en 
+servicio durante horario de operación. 
+CHUNK 11: Spa Zen Paradise - Servicios y Tratamientos 
+Spa de servicio completo con 8 cabinas de tratamiento. Horario: 9:00 AM - 8:00 PM diario. Reservación 
+recomendada. Servicios: masajes (sueco, piedras calientes, deep tissue, aromaterapia), faciales, 
+tratamientos corporales, manicure, pedicure. Masaje de 50 minutos desde $85 USD, 80 minutos desde 
+$125 USD. Paquetes de pareja disponibles. Incluye acceso a área de hidroterapia (sauna, vapor, jacuzzi). 
+15% de descuento para huéspedes que reserven 3+ tratamientos. 
+CHUNK 12: Actividades Acuáticas 
+Deportes acuáticos no motorizados incluidos en Todo Incluido: kayak, paddleboard, snorkel (equipo 
+incluido), tabla de windsurf (clases básicas incluidas). Horario: 9:00 AM - 5:00 PM. Actividades 
+motorizadas con costo adicional: jet ski ($65 USD 30 min), paseo en banana boat ($25 USD por persona), 
+parasailing ($85 USD). Tour de snorkel al arrecife: salidas 10:00 AM y 2:00 PM, duración 2 horas, incluido 
+en all-inclusive, reservación requerida. 
+CHUNK 13: Actividades Terrestres y Entretenimiento 
+Gimnasio 24 horas con equipos Technogym. Clases grupales incluidas: yoga en la playa (7:00 AM), aqua 
+aerobics (11:00 AM), pilates (5:00 PM), zumba (6:00 PM). Canchas de tenis (2 canchas iluminadas, 
+equipo disponible sin costo, reservación requerida). Voleibol de playa (juegos organizados 4:00 PM). 
+Clases de cocina mexicana (miércoles y viernes 3:00 PM, gratuito, cupo limitado 12 personas). 
+Entretenimiento nocturno: shows en vivo (8:30 PM), música en vivo en lobby bar (9:00 PM - 12:00 AM). 
+CHUNK 14: Kids Club Pequeños Aventureros 
+Club infantil para niños de 4 a 12 años. Horario: 9:00 AM - 5:00 PM. Supervisión por personal 
+capacitado. Actividades: manualidades, juegos de playa, búsqueda del tesoro, mini olimpiadas, cine 
+infantil. Programa de actividades semanal disponible en recepción. Servicio gratuito incluido en Todo 
+Incluido. Almuerzo incluido para niños en el Kids Club. Se requiere registro previo en el club. Máximo 20 
+niños por sesión. 
+CHUNK 15: Tours y Excursiones 
+Tours disponibles con costo adicional (reservación en concierge): Chichén Itzá y cenote (día completo, 
+$95 USD adulto, $65 USD niño, incluye almuerzo y transporte), Tulum y Playa Paraíso ($75 USD adulto), 
+Xcaret Park ($135 USD adulto, $95 USD niño), Cozumel snorkel y playa ($85 USD), Nado con delfines 
+($145 USD). Salidas desde el resort. Cancelación sin cargo 48h antes. Tours operan según disponibilidad 
+y condiciones climáticas. 
+CHUNK 16: Políticas de Cancelación y Modificación 
+Cancelación gratuita hasta 7 días antes de la fecha de llegada. Cancelaciones de 6 a 3 días antes: cargo 
+de 1 noche. Cancelaciones con menos de 3 días: cargo del 100% de la reserva. No-show: cargo total de la 
+estadía. Modificaciones de fechas sin cargo hasta 14 días antes (sujeto a disponibilidad y diferencias 
+tarifarias). Temporada alta (diciembre 20 - enero 10, semana santa): políticas más restrictivas, consultar 
+al momento de reservar. Reembolsos procesados en 10-15 días hábiles. 
+CHUNK 17: Sistema Todo Incluido - Qué Incluye 
+El plan Todo Incluido Premium incluye: todas las comidas en restaurantes buffet y a la carta (con 
+reservación), snacks durante el día, bebidas alcohólicas nacionales e internacionales (marcas estándar), 
+bebidas no alcohólicas ilimitadas, minibar en habitación (reabastecido diariamente), deportes acuáticos 
+no motorizados, clases de fitness, entretenimiento diurno y nocturno, WiFi, impuestos y propinas. 
+Límite de una reservación por restaurante a la carta por noche. 
+CHUNK 18: Sistema Todo Incluido - Qué NO Incluye 
+NO incluido en Todo Incluido: tratamientos de spa, licores premium y vinos de etiqueta especial, servicio 
+de transporte aeropuerto, tours y excursiones fuera del resort, deportes acuáticos motorizados, 
+boutique y tienda de regalos, actividades especiales con costo (buceo, pesca deportiva), llamadas 
+telefónicas internacionales, servicio de lavandería, cargos por daños a la habitación, propinas 
+adicionales (opcionales), menú degustación en restaurantes especializados. 
+CHUNK 19: Política de Mascotas y Accesibilidad 
+Mascotas: NO se permiten mascotas en el resort, excepto perros de asistencia debidamente certificados 
+(notificación previa requerida). Accesibilidad: El resort cuenta con 12 habitaciones adaptadas para 
+huéspedes con movilidad reducida (rampas, barras de apoyo, duchas adaptadas). Elevadores en todos 
+los edificios. Sillas de ruedas disponibles para préstamo sin costo (sujeto a disponibilidad, reservación 
+anticipada recomendada). Menús en braille disponibles en restaurantes bajo solicitud. 
+CHUNK 20: Servicios Médicos y Seguridad 
+Enfermería en el resort con atención básica 24/7 (consultas menores sin costo). Médico de guardia 
+disponible bajo llamado (consulta $50 USD). Hospital más cercano a 15 minutos. Se recomienda seguro 
+de viaje. Farmacia en el resort (horario 8:00 AM - 10:00 PM). Caja de seguridad en habitaciones sin costo 
+adicional. Personal de seguridad 24/7. Cámaras de vigilancia en áreas comunes. Pulseras identificadoras 
+obligatorias para huéspedes (Todo Incluido). 
+CHUNK 21: Sustentabilidad y Programas Ecológicos 
+El Resort Paraíso Azure está comprometido con la sustentabilidad. Programas implementados: 
+eliminación de plásticos de un solo uso, sistema de purificación de agua (botellas rellenables gratuitas), 
+paneles solares que cubren 40% del consumo eléctrico, programa de reciclaje en todas las áreas, 
+productos de limpieza biodegradables, colaboración con proyectos de conservación de tortugas marinas 
+(liberación de tortugas temporada mayo-octubre, huéspedes pueden participar sin costo). Certificación 
+EarthCheck Gold. 
+CHUNK 22: Contacto y Reservaciones 
+Reservaciones: Email: reservas@paraisoazure.com | Teléfono: +52 984 123 4567 | WhatsApp: +52 984 
+765 4321. Horario de atención: 8:00 AM - 8:00 PM (GMT-5). Sitio web: www.paraisoazure.com. Redes 
+sociales: @ParaisoAzureResort (Instagram, Facebook). Para consultas durante la estadía: marcar 
+extensión 0 desde habitación o acudir a recepción. Tiempo promedio de respuesta por email: 24 horas. 
+Atención en español e inglés. 
+CHUNK 23: Preguntas Frecuentes - Llegada y Check-in 
+¿Puedo hacer early check-in? Sujeto a disponibilidad, se puede solicitar sin garantía. Cargo adicional de 
+$50 USD si se confirma. ¿Qué documentos necesito? Identificación oficial con foto y tarjeta de crédito 
+para incidentales. ¿Aceptan efectivo para incidentales? Sí, se requiere depósito de $200 USD en efectivo 
+o autorización en tarjeta. ¿Hay cuota resort fee adicional? No, todos los impuestos y fees están incluidos 
+en la tarifa publicada. 
+CHUNK 24: Preguntas Frecuentes - Durante la Estadía 
+¿El WiFi es bueno? Sí, WiFi de alta velocidad en todas las áreas, adecuado para videollamadas y 
+streaming. ¿Hay zona solo adultos? Sí, la piscina Infinity y el área de playa sección norte son solo para 
+mayores de 18 años. ¿Puedo recibir paquetes/correspondencia? Sí, notificar a recepción con 
+anticipación. ¿Hay servicio de lavandería? Sí, con costo adicional. Servicio express disponible (24h) con 
+30% de recargo. ¿Puedo fumar en el resort? Solo en áreas designadas al aire libre. Habitaciones 100% 
+libres de humo. 
+CHUNK 25: Mejor Época para Visitar 
+Temporada alta (diciembre-abril): clima seco, temperaturas 24-28°C, mar tranquilo, ideal para playa. 
+Temporada de lluvias (mayo-octubre): temperaturas 26-32°C, lluvias generalmente cortas por las tardes, 
+tarifas más económicas, menos ocupación. Temporada de huracanes: junio-noviembre (mayor riesgo 
+agosto-octubre), el resort tiene protocolos de seguridad y plan de evacuación. Mejor época para buceo: 
+junio-agosto (mejor visibilidad). Temporada de avistamiento de tortugas: mayo-octubre. 
