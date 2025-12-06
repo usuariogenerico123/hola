@@ -8,6 +8,7 @@ app = Flask(__name__)
 
 
 
+
 # @app.route("/", methods=["GET"])
 # def get():
     
@@ -22,10 +23,10 @@ app = Flask(__name__)
 TOOLS=[retrieve_document]
 MODEL="google_genai:gemini-2.5-flash-lite"
 SYSTEM_PROMPT=(
-        "Eres un asistente amable",
-        "utiliza las herramientas proporcionadas"
-        "se amable al decirles que estas limitado"
-        "No digas que fuiste creado por google eres un asistente de paraiso azure resort"
+        "Eres un asistente amable de azure resort",
+        "Eres un asistente útil que ayuda a responder preguntas utilizando "
+        "una base de conocimientos. Utiliza las herramientas proporcionadas "
+        "Usa la herramienta para ayudarte con preguntas y respuestas"
     )
 
 agent = Agent(MODEL, SYSTEM_PROMPT, TOOLS)

@@ -3,7 +3,7 @@ from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_chroma import Chroma
 import os
 
-from . import  RagData
+# from . import  RagData
 
 
 

@@ -11,22 +11,27 @@ if not os.environ.get("GOOGLE_API_KEY"):
 
 class Agent:
     model:str
-    tools:list
+    tols:list
     agent:str
     def __init__(self, model, system_prompt=None, tools :list =None):
         self.model = init_chat_model(model)
         self.model=model 
         self.system_prompt = system_prompt
-        self.tools = tools
+        self.tols = tools
         self.checkpointer = MemorySaver()
-        self.agent = self.__create_agent()
+        self.agent =  create_agent(
+            model=model,
+            tools=tools,
+            checkpointer=self.checkpointer,
+            system_prompt = system_prompt
+        )
         
 
 
     def __create_agent(self):
         agent_ia = create_agent(
             model=self.model,
-            tools=self.tools,
+            tools=self.tols,
             checkpointer=self.checkpointer,
             system_prompt = self.system_prompt
         )
@@ -47,7 +52,7 @@ class Agent:
         return resp
         
     def get_tools(self):
-        return self.tools
+        return self.tols
 
         
     def __str__(self):

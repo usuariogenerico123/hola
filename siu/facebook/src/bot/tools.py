@@ -1,24 +1,25 @@
 from langchain.tools import tool
 
-from rag import init_db
+from .rag import init_db
+from .RagData import collection, embedding, directory
 
-from RagData import collection, embedding, directory
+db = init_db(collection, embedding, directory)
+@tool
+def retrieve_document(dbv:object, query:str)->str:
 
-
-aksdjlajksd
-#@tool
-def retrieve_document(query:str):
-    
     """Retrieve information to help answer a query."""
-    db = init_db(collection, embedding, directory)
+    
     print("iniciando retrieve")
-    resp = db.similarity_search(
-        query,
-        k=2
-    )
-    print(resp)
-    answer = "\n".join([i.page_content for i in resp])
+    print(collection)
+    print(directory)
+    print(db)
+    print(query)
 
+    resp = db.similarity_search(query=query, k=2)
+   
+    answer = "\n".join([i.page_content for i in resp])
+    
     return answer
 
-print(retrieve_document("Horarios y servicios"))
+# e=retrieve_document("Que servicios ofrece la empresa")
+# print(e)
