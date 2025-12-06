@@ -1,8 +1,8 @@
 from langchain.tools import tool
-import RagData
-from rag import init_db
 
+from .rag import init_db
 
+from . import RagData
 
 
 @tool
@@ -16,5 +16,5 @@ def retrieve_document(query:str):
         k=2
     )
     answer = "\n".join([i.page_content for i in resp])
-    
+
     return answer

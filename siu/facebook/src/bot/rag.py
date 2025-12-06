@@ -3,7 +3,7 @@ from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_chroma import Chroma
 import os
 
-import RagData
+from . import  RagData
 
 
 
@@ -59,9 +59,9 @@ def add_to_vectordb(text_archive:str, collection_name:str, name_embedding:object
 
 
 
-COLLECTION = RagData.collection
-DIRECTORY = RagData.directory
-EMBEDDING = RagData.embedding
-ARCHIVE = RagData.archive
+# COLLECTION = RagData.collection
+# DIRECTORY = RagData.directory
+# EMBEDDING = RagData.embedding
+# ARCHIVE = RagData.archive
 
 #add_to_vectordb(ARCHIVE, COLLECTION, EMBEDDING, DIRECTORY)
