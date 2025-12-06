@@ -1,7 +1,10 @@
 from langchain_text_splitters import RecursiveCharacterTextSplitter 
-from langchain_google_genai import GoogleGenerativeAIEmbeddings
+
 from langchain_chroma import Chroma
 import os
+
+import RagData
+
 
 
 
@@ -56,10 +59,9 @@ def add_to_vectordb(text_archive:str, collection_name:str, name_embedding:object
 
 
 
-collection = "paraiso_resort"
-directory="./db_chroma"
-embedding = GoogleGenerativeAIEmbeddings(model="models/gemini-embedding-001")
-archive = "./documents/resortAzure.txt"
+COLLECTION = RagData.collection
+DIRECTORY = RagData.directory
+EMBEDDING = RagData.embedding
+ARCHIVE = RagData.archive
 
-
-add_to_vectordb(archive, collection, embedding, directory)
+#add_to_vectordb(ARCHIVE, COLLECTION, EMBEDDING, DIRECTORY)
