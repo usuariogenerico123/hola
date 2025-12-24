@@ -20,25 +20,27 @@ app = Flask(__name__)
 #     return "siu", 200
 
 
-TOOLS=[retrieve_document]
-MODEL="google_genai:gemini-2.5-flash-lite"
-SYSTEM_PROMPT=(
-        "Eres un asistente amable de azure resort",
-        "Eres un asistente útil que ayuda a responder preguntas utilizando "
-        "una base de conocimientos. Utiliza las herramientas proporcionadas "
-        "Usa la herramienta para ayudarte con preguntas y respuestas"
-    )
+print(retrieve_document("Informacion general??"))
 
-agent = Agent(MODEL, SYSTEM_PROMPT, TOOLS)
-def siu():
+# TOOLS=[retrieve_document]
+# MODEL="google_genai:gemini-2.5-flash-lite"
+# SYSTEM_PROMPT=(
+#         "Eres un asistente amable de azure resort",
+#         "Eres un asistente útil que ayuda a responder preguntas utilizando "
+#         "una base de conocimientos. Utiliza las herramientas proporcionadas "
+#         "Usa la herramienta para ayudarte con preguntas y respuestas"
+#     )
 
-    while True:
-        o = input(":  ")
-        if(o == "salir"): break 
+# agent = Agent(MODEL, SYSTEM_PROMPT, TOOLS)
+# def siu():
 
-        re = agent.chat(o, "1")
-        print(re)
-siu()
+#     while True:
+#         o = input(":  ")
+#         if(o == "salir"): break 
+
+#         re = agent.chat(o, "1")
+#         print(re)
+# siu()
 # @app.route("/", methods=["POST"])
 # def post():
 #     data=request.get_json()

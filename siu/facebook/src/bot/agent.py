@@ -28,15 +28,15 @@ class Agent:
         
 
 
-    def __create_agent(self):
-        agent_ia = create_agent(
-            model=self.model,
-            tools=self.tols,
-            checkpointer=self.checkpointer,
-            system_prompt = self.system_prompt
-        )
+    # def __create_agent(self):
+    #     agent_ia = create_agent(
+    #         model=self.model,
+    #         tools=self.tols,
+    #         checkpointer=self.checkpointer,
+    #         system_prompt = self.system_prompt
+    #     )
 
-        return agent_ia
+    #     return agent_ia
         
     def chat(self, text:str,  id:str):
         print("iniciandp chat")
