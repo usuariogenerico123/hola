@@ -1,70 +1,119 @@
+from groq import Groq
+import time
+import json
+import random
 
-# To run this code you need to install the following dependencies:
-# pip install google-genai
-
-import base64
-import os
-from google import genai
-from google.genai import types
+KEY="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"
 
 
 
-client = genai.Client(
-        api_key=os.environ.get("GOOGLE_API_KEY"),
-    )
-model = "gemini-2.0-flash-lite"
-def generate(prompt):
+client = Groq(
+    api_key=KEY
+)
+
+
+
+def suma_erronea(numeros:list) -> dict:
+    """Funcion divertida para sumar numeros de forma erronea"""
+
+
+    print(f"Ejecutando funcion {suma_erronea.__name__}")
+    sum = 0
+    for i in numeros:
+        sum += i
+    return json.dumps({"resultado":sum + random.randint(0, 20)})
+
+
+tools=[
+    {
+        "type":"function",
+        "function":{
+            "name":"suma_erronea",
+            "description":"Recibe una lista de numeros",
+            "parameters":{
+                "type":"object",
+                "properties":{
+                    "numeros":{"type":"array", "description":"Numeros,  ejemplo: [2,4,5,1,4]"}
+                },
+                "required":["numeros"]
+            }
+
+        }
+    }
+]
+
+
+MODEL="llama-3.3-70b-versatile"
+
+def init(message):
     
+    messages = [
+        {"role":"system", "content":"Si el usuario te pide sumar, seras un asistente que realiza sumas erroneas divertidas, usa la herramienta para realizar al operacion"},
+        {
+            "role":"user",
+            "content":message
+        }
+    ]
 
-    contents = []
 
 
-    # contents = [
-    #     types.Content(
-    #         role="user",
-    #         parts=[
-    #             types.Part.from_text(text=prompt),
-    #         ],
-    #     ),
-    # ]
-    contents.append({"role":"user","parts": [{"text":prompt}]})
-
-    # tools = [
-    #     types.Tool(googleSearch=types.GoogleSearch(
-    #     )),
-    # ]
-    generate_content_config = types.GenerateContentConfig(
-        # thinking_config=types.ThinkingConfig(
-        #     thinking_level="HIGH",
-        # ),
-        #tools=tools,
+    chat = client.chat.completions.create(
+    messages=messages,
+    model=MODEL,
+    tools=tools,   
+    tool_choice="auto"
     )
+    
+    
+    #mappear funciones 
+    funciones = {
+        "suma_erronea":suma_erronea
+    }
+   
 
-    #print(contents)
-    resp = ""
-    for chunk in client.models.generate_content_stream(
-        model=model,
-        contents=contents,
-        config=generate_content_config,
-    ):
-        resp += chunk.text
-        print(chunk.text)
-
-    contents.append({"role":"model","parts":[{"text":resp}]})
+    message = chat.choices[0].message
+    req_tools = message.tool_calls
 
 
-if __name__ == "__main__":
-    while True:
-        u = input(": ")
-        if(u == "0"): print("Adios");break 
-        else:
+    if(req_tools):
+        input("La ia quiere usar una tool: ")
+        
+        messages.append(message)
 
-            generate(u)
+        for tool in req_tools:
+            nombre_funcion = tool.function.name
+            argumentos = json.loads(tool.function.arguments)
+            funcion=funciones[nombre_funcion]
+            respuesta = funcion(argumentos.get("numeros"))
 
+            print(respuesta)
 
+            messages.append({
+                "tool_call_id":tool.id,
+                "role":"tool",
+                "name":nombre_funcion,
+                "content":respuesta
+            })
+        resp_final = client.chat.completions.create(
+            model=MODEL,
+            messages=messages
+        )
+        print(resp_final.choices[0].message.content)
+        return True
+    print(message.content)
+            
 
+preg = input("Pregunta al bot: ")
+init(preg)
 
+# while True:
+#     o = input("Mensaje: ")
+#     if(o == 0):break;print("Adios")
+    
+#     message = init(o).choices[0].message
+#     time.sleep(2)
+#     if(message.tool_calls):
 
-
+    
 
 
