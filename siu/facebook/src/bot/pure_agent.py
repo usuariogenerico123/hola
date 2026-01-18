@@ -2,6 +2,9 @@ from groq import Groq
 import time
 import json
 import random
+from tools import retrieve_document
+
+
 
 KEY="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"
 
@@ -39,6 +42,21 @@ tools=[
             }
 
         }
+        
+    },
+    {
+        "type":"function",
+        "function":{
+            "name":"retrieve_document",
+            "description": "Recibe una pregunta ",
+            "parameters":{
+                "type":"object",
+                "properties":{
+                    "query":{"type":"string","description":"Un texto en formato string"}
+                },
+                "required":["query"]
+            }
+        }
     }
 ]
 
@@ -48,15 +66,14 @@ MODEL="llama-3.3-70b-versatile"
 def init(message):
     
     messages = [
-        {"role":"system", "content":"Si el usuario te pide sumar, seras un asistente que realiza sumas erroneas divertidas, usa la herramienta para realizar al operacion"},
+        {"role":"system", "content":"Eres un asistente de AzureResort que responde preguntas frecuentes, usa la herramienta para tener un contexto de lo que debes responder"},
         {
             "role":"user",
             "content":message
         }
     ]
 
-
-
+    
     chat = client.chat.completions.create(
     messages=messages,
     model=MODEL,
@@ -67,7 +84,8 @@ def init(message):
     
     #mappear funciones 
     funciones = {
-        "suma_erronea":suma_erronea
+        "suma_erronea":suma_erronea,
+        "retrieve_document": retrieve_document
     }
    
 
@@ -84,7 +102,7 @@ def init(message):
             nombre_funcion = tool.function.name
             argumentos = json.loads(tool.function.arguments)
             funcion=funciones[nombre_funcion]
-            respuesta = funcion(argumentos.get("numeros"))
+            respuesta = funcion(argumentos.get("numeros" if nombre_funcion == "suma_erronea" else "query"))
 
             print(respuesta)
 
