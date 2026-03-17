@@ -1,0 +1,17 @@
+{
+   "user": {
+      "active": false,
+      "telegramId": 123456,
+      "telegramToken": "telegram-token"
+   },
+   "file": {
+      "paths": [
+         "/rutaAbsoluta/hacia/el/archivo.txt"
+      ]
+   },
+   "dir": {
+      "paths": [
+         "/rutaAbsoluta/hacia/la/carpeta/"
+      ]
+   }
+}

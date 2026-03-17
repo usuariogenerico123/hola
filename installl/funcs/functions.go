@@ -64,8 +64,6 @@ func ListCleaner(list[]string)[]string{
 func WriteLog(content string)bool{
 	logFile :=  config.LOGFILE
 
-	 
-
 	file, err := os.OpenFile(logFile, os.O_CREATE | os.O_RDWR  | os.O_APPEND, 0644)
 
 	if(err != nil){
@@ -119,9 +117,30 @@ func CreateInfoJson(){
 	}
 	fmt.Println("Archivo creado con exito :" + fileInfoJson )
 	
-	fmt.Println("Abre el archivo "+ fileInfoJson + "configura tus rutas y vuelve a iniciar el programa")
+	fmt.Println("Abre el archivo "+ fileInfoJson + " configura tus rutas y vuelve a iniciar el programa \n")
 	time.Sleep(2 * time.Second)
 	os.Exit(0)
 
 }
+
+
+
+func CheckDir(){
+	_, err := os.Stat(config.PATH)
+	
+	if(err != nil){
+		fmt.Println("Carpeta ", config.PATH, " no e encontrado")
+		fmt.Println("Creando..")
+		os.Mkdir(config.PATH, os.ModePerm)
+		return
+	}
+
+
+
+}
+
+
+
+
+
 

@@ -17,7 +17,9 @@ func main(){
 	
 	funcs.Cmd("clear")
 	
+	funcs.CheckDir()
 	telegram.VerifyUserStatus()
+	
 	var filesToAnalize []string
 	ch := make(chan os.Signal, 1) //channel
 
