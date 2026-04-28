@@ -20,6 +20,7 @@ app = Flask(__name__)
 #     return "siu", 200
 
 
+
 print(retrieve_document("Informacion general??"))
 
 # TOOLS=[retrieve_document]
