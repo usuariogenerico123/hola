@@ -44,14 +44,11 @@ type Response struct{
 
 func handle(w http.ResponseWriter, r *http.Request){
 	w.WriteHeader(http.StatusOK)
+	
 	fmt.Println(r.Method)
 
-
-
-
 	if( r.Method == "POST"  ){
-		fmt.Println("jijojojojo")
-		fmt.Println("Es post")
+		
 
 		e := r.Body
 		defer e.Close()
@@ -72,7 +69,7 @@ func handle(w http.ResponseWriter, r *http.Request){
 		
 	}
 	if( r.Method == "GET"){
-		fmt.Println("eS GET")
+		
 		fmt.Println(r.RequestURI)
 		fmt.Println(r.FormValue("hub_challenge"))
 
