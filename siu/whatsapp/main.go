@@ -2,30 +2,31 @@ package main
 
 import (
 	
-	"wp/banners"
-	"fmt"
-	"os/exec"
+	"wp/src"
 )
 
 
 
 func main(){
-	command("clear")
+	wp := &src.WhatsApp{}
+	wp.Message = "whatsapp"
 
-	banner := banners.MainBanner()
+	te := &src.Telegram{}
+	te.Message = "telegram"
 
-	fmt.Println(banner)
+	Send(wp)
+	Send(te)
 
+	
+
+}
+
+func Send(c src.Notification){
+	c.SendMessage()
 }
 
 
 
 
-func command(comando string){
-	com := exec.Command(comando)
-	c, err := com.Output()
-	if(err != nil){
-		fmt.Println(string(err.Error()))
-	}
-	fmt.Println(string(c))
-}
+
+
