@@ -1,0 +1,97 @@
+package cert
+
+import (
+	"encoding/json"
+	"fake/dnsmikis/requests"
+	"fake/domain"
+	"fmt"
+	"io"
+	"os"
+	"strings"
+)
+
+
+type CrtSh struct{
+	NameService string 
+	Domain string
+	Url string
+}
+
+
+
+func (c *CrtSh) CheckSubdomain() (domain.SubDomains, error){
+	fmt.Println("Check subdomain of ")
+	var result domain.SubDomains
+	resp, err := requests.Get(c.Url)
+	if(err != nil){
+		return result, err
+	}
+
+	body, err:= io.ReadAll(resp.Body)
+	if(err != nil){
+		// fmt.Println("Error: ")
+		// fmt.Println(err.Error())
+		return result, err
+		
+	}
+	//fmt.Println(string(body))
+	 
+	subdomains := ParseData(string(body))
+	for _,v := range subdomains{
+		result.SubDomains = append(result.SubDomains, strings.ReplaceAll(v.CommonName, "*.", ""))
+	}
+	return result, nil
+
+
+}
+
+
+func (c *CrtSh) ServiceName()string{
+	return c.NameService
+}
+
+
+
+func ReadFile(path string)[]string{
+
+	file, err := os.ReadFile(path)
+	if(err != nil){
+
+		fmt.Println(err.Error())
+		return []string{}
+	}
+
+	resp := strings.Fields(string(file))
+
+	return resp
+
+
+}
+
+
+
+func ParseData(content string)[]SubDomainCrt{
+	var subdomain []SubDomainCrt
+	resp := json.Unmarshal([]byte(content), &subdomain)
+	if(resp != nil){
+		fmt.Println("Error ParserData")
+		fmt.Println(resp.Error())
+		
+	}
+	return subdomain
+
+}
+
+
+// func readJson(){
+// 	file, err := os.ReadFile("testSub")
+// }
+
+
+
+
+
+
+
+
+
