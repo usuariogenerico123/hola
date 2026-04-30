@@ -114,8 +114,8 @@ func Init(lista []string)[]domain.Domain{
 	subdomains := []domain.Domain{}
 
 	dmain := make(chan domain.Domain, 10)
-	limitElements := 30
-	numThreads := 5
+	limitElements := 100
+	numThreads := 7
 
 
 

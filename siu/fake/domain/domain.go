@@ -25,7 +25,7 @@ type SubDomains struct{
 type Domain struct{
 	Name string
 	Ip  []net.IP
-	Subdomains []string 
+	//Subdomains []string 
 	Cdn []string
 
 }
