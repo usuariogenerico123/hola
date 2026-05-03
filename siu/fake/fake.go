@@ -35,36 +35,40 @@ func main(){
 		return
 	}
 
-	urlTrg := fmt.Sprintf("https://crt.sh/?q=%s&output=json", dominio)
+	urlCrt := fmt.Sprintf("https://crt.sh/?q=%s&output=json", dominio)
 	urlHtarget := fmt.Sprintf("https://api.hackertarget.com/hostsearch/?q=%s", dominio)
 	
 	
 	
-	crtSh := &cert.CrtSh{NameService:"crt.sh", Domain:dominio, Url: urlTrg}
-
+	crtSh := &cert.CrtSh{NameService:"crt.sh", Domain:dominio, Url: urlCrt}
 	crt, err := ScanSubdomain(crtSh)
-	
-	intentos := 4
 	if(err != nil){
+		fmt.Println("iNTENATO")
+		intentos := 3
+		ok := false
+		respCrt := make(chan domain.SubDomains)
+		go func(){fmt.Print("Espera.");for{time.Sleep(2000 * time.Millisecond);fmt.Print(".");if(ok == true){break}}}()
+		go func(){
+			for range intentos{
+				time.Sleep(4 * time.Second)
+				crt, err = ScanSubdomain(crtSh)
+				if(err == nil){
+					respCrt <- crt
+					ok = true
+					break
+				}
+			}
+		}()
+		crt = <- respCrt
 		//fmt.Println(err)
-		for range intentos{
-			fmt.Print(".")
-			time.Sleep(4 * time.Second)
-			crt, err = ScanSubdomain(crtSh)
-			
-		}
-		
 	}
 	
 	
 	hackTarget := &hacktarget.Htarget{NameService:"hackertarget", Domain: dominio, Url: urlHtarget}
 	ht, errt := ScanSubdomain(hackTarget)
-	
 	if(errt != nil){
-		
 		fmt.Println(errt.Error())
 		ht = domain.SubDomains{}
-		
 	}
 	
 	
