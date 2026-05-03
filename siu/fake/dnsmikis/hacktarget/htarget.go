@@ -30,10 +30,15 @@ func (h *Htarget) CheckSubdomain()(domain.SubDomains, error){
 		fmt.Println("Error: ", err.Error())
 		return subdomains, errors.New(err.Error())
 	}
+	
+	if(resp.StatusCode != 200){
+		
+		return subdomains, err 
+	}
 
 	body, _ := io.ReadAll(resp.Body)
 	list := [][]string{}
-	for _, v := range strings.Split(string(body), "\n"){
+	for _, v := range strings.Fields(string(body)){
 		
 		list = append(list, strings.Split(v, ","))
 	}	

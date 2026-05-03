@@ -5,6 +5,9 @@ import (
 	"fake/dnsmikis"
 	"fake/dnsmikis/cert"
 	"fake/dnsmikis/hacktarget"
+	
+	"net"
+	"sync"
 
 	//"fake/dnsmikis/hacktarget"
 	"fake/domain"
@@ -34,28 +37,30 @@ func main(){
 	
 	
 	crtSh := &cert.CrtSh{NameService:"crt.sh", Domain:dominio, Url: urlTrg}
+
 	crt, err := ScanSubdomain(crtSh)
+	fmt.Println(err)
 	if(err != nil){
 		fmt.Println(err)
-		//return
+		fmt.Println("reintentando..")
+		// time.Sleep(4 * time.Second)
+		// crt, err = ScanSubdomain(crtSh)
+		// main()
 	}
-
+	
 	
 	hackTarget := &hacktarget.Htarget{NameService:"hackertarget", Domain: dominio, Url: urlHtarget}
 	ht, errt := ScanSubdomain(hackTarget)
+	fmt.Println("Iniciando target")
 	if(errt != nil){
+		fmt.Println("Error target")
 		fmt.Println(errt.Error())
-		//return
+		ht = domain.SubDomains{}
+		fmt.Println(ht.SubDomains)
+		fmt.Println("-------------------------------------------")
 	}
-
-
 	
-
-	// subDomainHtarge, err := hacktarget.CheckSubdomain(urlHtarget)
-	// if(err != nil){
-	// 	fmt.Println(err)
-	// 	return
-	// }
+	fmt.Println(ht.SubDomains)
 
 	
 	var subdomains []domain.Domain
@@ -72,7 +77,7 @@ func main(){
 
 	
 	//Dominio padre
-	dominioPadre := domain.Domain{Name: dominio, Ip: funcs.CheckIp(dominio, true)}
+	dominioPadre := domain.Domain{Name: dominio, Ip: func()[]net.IP{ r, _ := funcs.CheckIp(dominio, true);return r}()}
 	dominioPadre.CheckNs()
 	subdomains = append(subdomains, dominioPadre)
 	//Subdominios
@@ -102,8 +107,9 @@ func main(){
 
 	end := time.Since(start)
 	fmt.Println("Terminado en :", end)
+	os.Exit(1)
 	//fmt.Println(funcs.CheckIp(dominio, false))
-
+	
 	
 }
 
@@ -113,7 +119,8 @@ func main(){
 func Init(lista []string)[]domain.Domain{
 	subdomains := []domain.Domain{}
 
-	dmain := make(chan domain.Domain, 10)
+	dmain := make(chan *domain.Domain, 10)
+	var wg sync.WaitGroup
 	limitElements := 100
 	numThreads := 7
 
@@ -125,25 +132,40 @@ func Init(lista []string)[]domain.Domain{
 		chunksSubdomains := funcs.SplitArray(lista, numThreads)
 
 		for _,list := range chunksSubdomains{
-			go func(){
-				
-				for _, x := range list{
-					//fmt.Print(x)
-				
-					time.Sleep(50 * time.Millisecond)	
-					domaiin := domain.Domain{Name: x, Ip: funcs.CheckIp(x, true) }
+			wg.Add(1)
+			go func(lista []string){
+				defer wg.Done()
+				for _, x := range lista{
+					
+					ip, err := funcs.CheckIp(x, true)
+					if(err != nil){
+						fmt.Printf("\r%s", style.RED + err.Error() + style.END)
+						dmain <- nil
+						continue
+					}
+					domaiin := &domain.Domain{Name: x, Ip: ip }
 					domaiin.CheckNs()
 					//subdomains = append(subdomains, domaiin)
 					dmain <- domaiin
 					}
-				//fmt.Printf(".")
-			}()
+				
+				
+			}(list)
 
 		}
 
-		for range(len(lista)){
-			info := <- dmain
-			subdomains = append(subdomains, info)
+		go func(){
+			wg.Wait()
+			close(dmain)
+		}()
+
+		for info := range dmain{
+			
+			if(info != nil){
+				subdomains = append(subdomains, *info)
+			}
+		
+			
 		}
 			
 		return subdomains
@@ -152,10 +174,8 @@ func Init(lista []string)[]domain.Domain{
 	}
 
 	for _, x := range lista{
-		//fmt.Print(x)
-		time.Sleep(50 * time.Millisecond)
-		
-		domaiin := domain.Domain{Name: x, Ip: funcs.CheckIp(x, true) }
+		ip, _ := funcs.CheckIp(x, true)
+		domaiin := domain.Domain{Name: x, Ip: ip }
 		domaiin.CheckNs()
 		subdomains = append(subdomains, domaiin)
 
@@ -170,7 +190,7 @@ func ScanSubdomain(s dnsmikis.Scan)(domain.SubDomains, error){
 	resp, err := s.CheckSubdomain()
 	if(err != nil){
 		
-		fmt.Println(err.Error(), s.ServiceName())
+		fmt.Println(s.ServiceName())
 		return resp, err
 	}
 	return resp, nil

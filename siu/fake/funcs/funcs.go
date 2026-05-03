@@ -3,9 +3,10 @@ package funcs
 import (
 	"fmt"
 	"math/rand"
+
 	"net"
+
 	"time"
-	//"time"
 )
 
 //---------------
@@ -43,14 +44,14 @@ func elementInList(list []string, element string)bool{
 //------------------
 
 
-func CheckIp(url string, onlyIpv4 bool)[]net.IP{
+func CheckIp(url string, onlyIpv4 bool)([]net.IP, error){
 	
 
-	time.Sleep(time.Duration(rand.Intn(100)) * time.Millisecond)
 	resp, err := net.LookupIP(url)
 	if(err != nil){
-		fmt.Printf("\r %s", err.Error())
-		return []net.IP{}
+		time.Sleep(time.Duration(rand.Intn(100)) * time.Millisecond)
+		// fmt.Printf("\r %s", err.Error())
+		return []net.IP{}, err
 	}
 	if(onlyIpv4){
 		
@@ -62,10 +63,10 @@ func CheckIp(url string, onlyIpv4 bool)[]net.IP{
 				ipv4s = append(ipv4s, resp[i])
 			}
 		}
-		return ipv4s
+		return ipv4s, nil
 	}
 
-	return resp
+	return resp, nil
 }
 
 
@@ -89,27 +90,20 @@ func CheckCdn(ip net.IP, rangeIps[]string)bool{
 
 	for _, v := range(rangeIps){
 
-		//time.Sleep(50 * time.Millisecond)
+		
 		_, ipnet, err := net.ParseCIDR(v)
 		if(err != nil){
-
 			fmt.Println("Error checkcnd: "+ v + err.Error())
 			return false
 		}
+
 		ipp := net.ParseIP(ip.String())
-		//fmt.Println(ipnet.Contains(ipp))
 		if(ipnet.Contains(ipp)){
-			//fmt.Println(ip, true, v)
-			//fmt.Println("cloudflare")
 			return true
-		// }else{
-		// 	fmt.Println(ip, false, v)
-		// 
 		}
 
 
 	}
-	//fmt.Println(ip)
 	return false
 	
 }

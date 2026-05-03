@@ -12,7 +12,7 @@ import (
 
 func TestCheckIp(t *testing.T){
 	url := "money.tigo.com.bo"
-	r := CheckIp(url, true)
+	r, _ := CheckIp(url, true)
 	fmt.Println("IP: ",r)
 	fmt.Println("NS: ",CheckNs(url))
 
