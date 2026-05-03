@@ -1,9 +1,10 @@
 package cert
 
 import (
-	"encoding/json"
+	
 	"fake/dnsmikis/requests"
 	"fake/domain"
+	"fake/funcs"
 	"fmt"
 	"io"
 	"strings"
@@ -34,8 +35,12 @@ func (c *CrtSh) CheckSubdomain() (domain.SubDomains, error){
 		
 	}
 	//fmt.Println(string(body))
-	 
-	subdomains := ParseData(string(body))
+	subdomains, err := funcs.Parser[[]SubDomainCrt](string(body))
+	if(err != nil){
+		fmt.Println("Error parse: "+err.Error())
+		return result, err
+	}
+	//subdomains := ParseData(string(body))
 	for _,v := range subdomains{
 		result.SubDomains = append(result.SubDomains, strings.ReplaceAll(v.CommonName, "*.", ""))
 	}
@@ -52,17 +57,17 @@ func (c *CrtSh) ServiceName()string{
 
 
 
-func ParseData(content string)[]SubDomainCrt{
-	var subdomain []SubDomainCrt
-	resp := json.Unmarshal([]byte(content), &subdomain)
-	if(resp != nil){
-		fmt.Println("Error ParserData")
-		fmt.Println(resp.Error())
+// func ParseData( content string)[]SubDomainCrt{
+// 	var subdomain []SubDomainCrt
+// 	resp := json.Unmarshal([]byte(content), &subdomain)
+// 	if(resp != nil){
+// 		fmt.Println("Error ParserData")
+// 		fmt.Println(resp.Error())
 		
-	}
-	return subdomain
+// 	}
+// 	return subdomain
 
-}
+// }
 
 
 

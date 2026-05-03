@@ -5,6 +5,8 @@ import (
 	"fake/dnsmikis"
 	"fake/dnsmikis/cert"
 	"fake/dnsmikis/hacktarget"
+	"fake/dnsmikis/urlscan"
+	"sync/atomic"
 
 	"net"
 	"sync"
@@ -37,27 +39,32 @@ func main(){
 
 	urlCrt := fmt.Sprintf("https://crt.sh/?q=%s&output=json", dominio)
 	urlHtarget := fmt.Sprintf("https://api.hackertarget.com/hostsearch/?q=%s", dominio)
-	
+	urlUrlScanio := fmt.Sprintf("https://urlscan.io/api/v1/search/?q=domain:%s", dominio)
 	
 	
 	crtSh := &cert.CrtSh{NameService:"crt.sh", Domain:dominio, Url: urlCrt}
 	crt, err := ScanSubdomain(crtSh)
 	if(err != nil){
 		fmt.Println("iNTENATO")
-		intentos := 3
-		ok := false
+		intentos := 5
+		var ok atomic.Bool
+		ok.Store(false)
 		respCrt := make(chan domain.SubDomains)
-		go func(){fmt.Print("Espera.");for{time.Sleep(2000 * time.Millisecond);fmt.Print(".");if(ok == true){break}}}()
+		go func(){fmt.Print("Espera.");for{time.Sleep(2000 * time.Millisecond);if(ok.Load() == true){break};fmt.Print(".")}}()
 		go func(){
-			for range intentos{
-				time.Sleep(4 * time.Second)
+			for range intentos-1{
+				fmt.Print("|")
+				time.Sleep(5 * time.Second)
 				crt, err = ScanSubdomain(crtSh)
 				if(err == nil){
+
+					ok.Store(true)
 					respCrt <- crt
-					ok = true
 					break
 				}
 			}
+			respCrt <- domain.SubDomains{}
+			ok.Store(true)
 		}()
 		crt = <- respCrt
 		//fmt.Println(err)
@@ -71,6 +78,16 @@ func main(){
 		ht = domain.SubDomains{}
 	}
 	
+
+	scanIo := &urlscan.UrlScan{NameService: "urlscan.io", Domain: dominio, Url: urlUrlScanio}
+	sci, errs := ScanSubdomain(scanIo)
+	if(errs != nil){
+		fmt.Println(errs.Error())
+	}
+
+
+
+
 	
 	var subdomains []domain.Domain
 	
@@ -81,6 +98,7 @@ func main(){
 	
 
 	subdomainsStrings := append(crt.SubDomains, ht.SubDomains...)
+	subdomainsStrings = append(subdomainsStrings, sci.SubDomains...)
 	listClean := funcs.DeleteRepeat(subdomainsStrings)
 	
 

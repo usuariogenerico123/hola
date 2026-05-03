@@ -10,6 +10,10 @@ import (
 
 func main(){
 
+	nombre := "Pepe"
+	var saludo string = func(user string)string{return "hola "+user}(nombre)
+
+	fmt.Println(saludo)
 	c := make(chan string)
 
 	wp := &src.WhatsApp{}

@@ -1,6 +1,7 @@
 package funcs
 
 import (
+	"encoding/json"
 	"fmt"
 	"math/rand"
 
@@ -151,3 +152,15 @@ func SplitArray(list []string, numSplit int)[][]string {
 }
 
 
+//Parsea el json string hacia un struct 
+//[T any] es el tipo de dato T que manejara y devolvera
+func Parser[T any](content string)(T, error){
+	var data T
+	resp := json.Unmarshal([]byte(content), &data)
+	if(resp!= nil){
+		fmt.Println("Error marshal: ", resp.Error())
+		return data, resp
+		
+	}
+	return data, nil
+}
