@@ -5,7 +5,7 @@ import (
 	"fake/dnsmikis"
 	"fake/dnsmikis/cert"
 	"fake/dnsmikis/hacktarget"
-	
+
 	"net"
 	"sync"
 
@@ -25,12 +25,16 @@ import (
 
 
 
-
 func main(){
+	fmt.Println(style.Banner)
+	dominio := input("Escribe el nombre de tu dominio ->: ")
+	
+	//dominio := os.Args[1]
+	if(len(funcs.CheckNs(dominio)) == 0){
+		fmt.Printf(style.RED + "Dominio: %s no existe\n"+style.END , dominio  )
+		return
+	}
 
-	
-	
-	dominio := os.Args[1]
 	urlTrg := fmt.Sprintf("https://crt.sh/?q=%s&output=json", dominio)
 	urlHtarget := fmt.Sprintf("https://api.hackertarget.com/hostsearch/?q=%s", dominio)
 	
@@ -39,34 +43,35 @@ func main(){
 	crtSh := &cert.CrtSh{NameService:"crt.sh", Domain:dominio, Url: urlTrg}
 
 	crt, err := ScanSubdomain(crtSh)
-	fmt.Println(err)
+	
+	intentos := 4
 	if(err != nil){
-		fmt.Println(err)
-		fmt.Println("reintentando..")
-		// time.Sleep(4 * time.Second)
-		// crt, err = ScanSubdomain(crtSh)
-		// main()
+		//fmt.Println(err)
+		for range intentos{
+			fmt.Print(".")
+			time.Sleep(4 * time.Second)
+			crt, err = ScanSubdomain(crtSh)
+			
+		}
+		
 	}
 	
 	
 	hackTarget := &hacktarget.Htarget{NameService:"hackertarget", Domain: dominio, Url: urlHtarget}
 	ht, errt := ScanSubdomain(hackTarget)
-	fmt.Println("Iniciando target")
+	
 	if(errt != nil){
-		fmt.Println("Error target")
+		
 		fmt.Println(errt.Error())
 		ht = domain.SubDomains{}
-		fmt.Println(ht.SubDomains)
-		fmt.Println("-------------------------------------------")
+		
 	}
 	
-	fmt.Println(ht.SubDomains)
-
 	
 	var subdomains []domain.Domain
 	
 	start := time.Now()
-	fmt.Println(style.Banner)
+	
 	fmt.Println("Iniciando")
 	
 	
@@ -86,17 +91,8 @@ func main(){
 	
 	subdomains = Init(listClean)
 
-	// for _, x := range listClean{
-	// 	//fmt.Print(x)
-	// 	time.Sleep(50 * time.Millisecond)
 
-	// 	domaiin := domain.Domain{Name: x, Ip: funcs.CheckIp(x, true) }
-	// 	domaiin.CheckNs()
-	// 	subdomains = append(subdomains, domaiin)
-
-	// }
-
-	fmt.Println("\nMostrando resultados ")
+	fmt.Println("\nResultados: ")
 	for _, v := range subdomains{
 		time.Sleep(100 * time.Millisecond)
 		//fmt.Println("-------------------------------------------------------------------------------------------")
@@ -106,7 +102,7 @@ func main(){
 
 
 	end := time.Since(start)
-	fmt.Println("Terminado en :", end)
+	fmt.Println("Tiempo de ejecucion :", end)
 	os.Exit(1)
 	//fmt.Println(funcs.CheckIp(dominio, false))
 	
@@ -190,9 +186,22 @@ func ScanSubdomain(s dnsmikis.Scan)(domain.SubDomains, error){
 	resp, err := s.CheckSubdomain()
 	if(err != nil){
 		
-		fmt.Println(s.ServiceName())
+		//fmt.Println(s.ServiceName())
 		return resp, err
 	}
 	return resp, nil
+
+}
+
+
+func input(message string)string{
+	var dmnio string
+	fmt.Print(message)
+	_, err := fmt.Scanln(&dmnio)
+	if(err != nil){
+		return ""
+	}
+	
+	return dmnio
 
 }

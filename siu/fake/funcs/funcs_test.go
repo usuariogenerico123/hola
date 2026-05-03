@@ -26,7 +26,11 @@ func TestCheckCdn(t *testing.T){
 
 }
 
+func TestCheckNs(t *testing.T){
 
+	er := CheckNs("enteasdasdal.bo")
+	fmt.Println(er)
+}
 
 func TestSplitArray(t *testing.T){
 	//lista := []int{23, 2,23,4,23,1,43,76,98,34,00,4, 23, 656, 12, 24, 56, 12, 67, 12, 7, 12, 7, 23, 56, 23, 5, 3, 43, 12, 34, 56, 76, 3, 45, 2, 6, 2}

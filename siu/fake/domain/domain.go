@@ -96,7 +96,7 @@ func (d *Domain) CheckNs(){
 
 		}
 
-
+	//
 	ipsGoogle := IPs.GetIps("./IPs/googl.txt")
 	for _, j := range(domainIps){
 			

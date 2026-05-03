@@ -6,7 +6,6 @@ import (
 	"fake/domain"
 	"fmt"
 	"io"
-	"os"
 	"strings"
 )
 
@@ -20,7 +19,7 @@ type CrtSh struct{
 
 
 func (c *CrtSh) CheckSubdomain() (domain.SubDomains, error){
-	fmt.Println("Check subdomain of ")
+	//fmt.Println("Check subdomain of ")
 	var result domain.SubDomains
 	resp, err := requests.Get(c.Url)
 	if(err != nil){
@@ -52,23 +51,6 @@ func (c *CrtSh) ServiceName()string{
 
 
 
-func ReadFile(path string)[]string{
-
-	file, err := os.ReadFile(path)
-	if(err != nil){
-
-		fmt.Println(err.Error())
-		return []string{}
-	}
-
-	resp := strings.Fields(string(file))
-
-	return resp
-
-
-}
-
-
 
 func ParseData(content string)[]SubDomainCrt{
 	var subdomain []SubDomainCrt
@@ -83,9 +65,6 @@ func ParseData(content string)[]SubDomainCrt{
 }
 
 
-// func readJson(){
-// 	file, err := os.ReadFile("testSub")
-// }
 
 
 

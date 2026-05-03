@@ -28,8 +28,9 @@ func (h *Htarget) CheckSubdomain()(domain.SubDomains, error){
 	resp, err := requests.Get(h.Url)
 	if(err != nil){
 		fmt.Println("Error: ", err.Error())
-		return subdomains, errors.New(err.Error())
+		return subdomains, err
 	}
+
 	
 	if(resp.StatusCode != 200){
 		
@@ -45,6 +46,10 @@ func (h *Htarget) CheckSubdomain()(domain.SubDomains, error){
 	
 	for _,x := range list{
 		subdomains.SubDomains = append(subdomains.SubDomains, x[0])
+	}
+
+	if( subdomains.SubDomains[0] == "API" || subdomains.SubDomains[0] == "error"){
+		return subdomains, errors.New("Bad response")
 	}
 	return subdomains, nil
 }

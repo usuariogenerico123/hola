@@ -75,7 +75,8 @@ func CheckIp(url string, onlyIpv4 bool)([]net.IP, error){
 func CheckNs(url string)[]string{
 	resp, err := net.LookupNS(url)
 	if(err != nil){
-		fmt.Println(err.Error())
+		//fmt.Println(err.Error())
+		return []string{}
 	}
 	list := []string{}
 	for _, v := range resp{
