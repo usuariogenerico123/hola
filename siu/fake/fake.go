@@ -30,12 +30,16 @@ import (
 func main(){
 	fmt.Println(style.Banner)
 	dominio := input("Escribe el nombre de tu dominio ->: ")
-	
 	//dominio := os.Args[1]
 	if(len(funcs.CheckNs(dominio)) == 0){
 		fmt.Printf(style.RED + "Dominio: %s no existe\n"+style.END , dominio  )
 		return
 	}
+
+	
+
+
+
 
 	urlCrt := fmt.Sprintf("https://crt.sh/?q=%s&output=json", dominio)
 	urlHtarget := fmt.Sprintf("https://api.hackertarget.com/hostsearch/?q=%s", dominio)
@@ -118,7 +122,7 @@ func main(){
 	for _, v := range subdomains{
 		time.Sleep(100 * time.Millisecond)
 		//fmt.Println("-------------------------------------------------------------------------------------------")
-		fmt.Println(style.YELLOW, v.Name, style.END ,style.GREEN, v.Ip, style.END ,"\n", v.Cdn)
+		fmt.Println(style.YELLOW, v.Name, style.END ,style.GREEN, v.Ip, style.END ,"\n", v.Cdns)
 		fmt.Println("--------------------------------------------------------------------------------------------------")
 	}
 
@@ -162,7 +166,7 @@ func Init(lista []string)[]domain.Domain{
 						continue
 					}
 					domaiin := &domain.Domain{Name: x, Ip: ip }
-					domaiin.CheckNs()
+					domaiin.FindCdn()
 					//subdomains = append(subdomains, domaiin)
 					dmain <- domaiin
 					}

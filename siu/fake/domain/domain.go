@@ -26,15 +26,15 @@ type Domain struct{
 	Name string
 	Ip  []net.IP
 	//Subdomains []string 
-	Cdn []string
+	Cdns []string
 
 }
 
-func (d *Domain) CheckNs(){
+func (d *Domain) FindCdn(ips ){
 	//fmt.Println(d.Ip)
 	if (len(d.Ip) == 0){
 		//fmt.Println("No host")
-		d.Cdn = append(d.Cdn, style.RED,"Not a host", style.END)
+		d.Cdns = append(d.Cdns, style.RED,"Not a host", style.END)
 		
 	}
 
@@ -48,9 +48,9 @@ func (d *Domain) CheckNs(){
 			isCloudflare := funcs.CheckCdn(v, IPs.CLOUDFLARE)
 			//fmt.Println(isCloudflare)
 			if(isCloudflare == true){
-				d.Cdn = append(d.Cdn, style.YELLOW, style.SUB,"Cloudflare", style.END)  
+				d.Cdns = append(d.Cdns, style.YELLOW, style.SUB,"Cloudflare", style.END)  
 			}else{
-				d.Cdn = append(d.Cdn, style.RED + "Cloudflare" + style.END) 
+				d.Cdns = append(d.Cdns, style.RED + "Cloudflare" + style.END) 
 			}
 
 		}
@@ -61,9 +61,9 @@ func (d *Domain) CheckNs(){
 			
 			isCloudFront := funcs.CheckCdn(x, ips)
 			if(isCloudFront){
-				d.Cdn = append(d.Cdn, style.GREEN + "Cloudfront" + style.END)
+				d.Cdns = append(d.Cdns, style.GREEN + "Cloudfront" + style.END)
 			}else{
-				d.Cdn = append(d.Cdn, style.RED + "Cloudfront" + style.END)
+				d.Cdns = append(d.Cdns, style.RED + "Cloudfront" + style.END)
 			}
 
 		}
@@ -75,9 +75,9 @@ func (d *Domain) CheckNs(){
 			
 			isCloudFront := funcs.CheckCdn(z, IPs.FASTLY)
 			if(isCloudFront){
-				d.Cdn = append(d.Cdn, style.GREEN + "Fastly" + style.END)
+				d.Cdns = append(d.Cdns, style.GREEN + "Fastly" + style.END)
 			}else{
-				d.Cdn = append(d.Cdn, style.RED + "Fastly" + style.END)
+				d.Cdns = append(d.Cdns, style.RED + "Fastly" + style.END)
 			}
 
 		}
@@ -89,25 +89,26 @@ func (d *Domain) CheckNs(){
 			
 			isCloudFront := funcs.CheckCdn(j, ipsAkamain)
 			if(isCloudFront){
-				d.Cdn = append(d.Cdn, style.GREEN + "Akamai" + style.END)
+				d.Cdns = append(d.Cdns, style.GREEN + "Akamai" + style.END)
 			}else{
-				d.Cdn = append(d.Cdn, style.RED + "Akamai" + style.END)
+				d.Cdns = append(d.Cdns, style.RED + "Akamai" + style.END)
 			}
 
 		}
 
 	//
 	ipsGoogle := IPs.GetIps("./IPs/googl.txt")
-	for _, j := range(domainIps){
+	d.scanCdn("Google", ipsGoogle)
+	// for _, j := range(domainIps){
 			
-			isGoogleCloud := funcs.CheckCdn(j, ipsGoogle)
-			if(isGoogleCloud){
-				d.Cdn = append(d.Cdn, style.GREEN + "Google" + style.END)
-			}else{
-				d.Cdn = append(d.Cdn, style.RED + "Google" + style.END)
-			}
+	// 		isGoogleCloud := funcs.CheckCdn(j, ipsGoogle)
+	// 		if(isGoogleCloud){
+	// 			d.Cdns = append(d.Cdns, style.GREEN + "Google" + style.END)
+	// 		}else{
+	// 			d.Cdns = append(d.Cdns, style.RED + "Google" + style.END)
+	// 		}
 
-		}
+	// 	}
 
 
 
@@ -118,7 +119,19 @@ func (d *Domain) CheckNs(){
 
 
 
-	
+func (d *Domain) scanCdn(cdnName string, cdnIps[]string){
+	//ipsGoogle := IPs.GetIps("./IPs/googl.txt")
+	for _, j := range(d.Ip){
+			
+			isCdn:= funcs.CheckCdn(j, cdnIps)
+			if(isCdn){
+				d.Cdns = append(d.Cdns, style.GREEN + cdnName + style.END)
+			}else{
+				d.Cdns = append(d.Cdns, style.RED + cdnName + style.END)
+			}
+
+		}
+}
 
 	
 
