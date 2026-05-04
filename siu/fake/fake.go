@@ -2,26 +2,20 @@ package main
 
 import (
 	//"encoding/json"
+	"fake/IPs"
 	"fake/dnsmikis"
 	"fake/dnsmikis/cert"
 	"fake/dnsmikis/hacktarget"
 	"fake/dnsmikis/urlscan"
-	"sync/atomic"
-
+	//"sync/atomic"
 	"net"
 	"sync"
-
-	//"fake/dnsmikis/hacktarget"
 	"fake/domain"
 	"fake/funcs"
 	"fake/style"
-	"os"
-
-	//"strings"
 	"time"
-
-	//"fake/funcs"
 	"fmt"
+	"os"
 )
 
 
@@ -29,15 +23,18 @@ import (
 
 func main(){
 	fmt.Println(style.Banner)
-	dominio := input("Escribe el nombre de tu dominio ->: ")
-	//dominio := os.Args[1]
+	//dominio := input("Escribe el nombre de tu dominio ->: ")
+	dominio := os.Args[1]
 	if(len(funcs.CheckNs(dominio)) == 0){
 		fmt.Printf(style.RED + "Dominio: %s no existe\n"+style.END , dominio  )
 		return
 	}
 
+	ips := &IPs.IpRanges{IPsPath: "./IPs"}
+	ips.Load()
+	cdnList := ips.GetListCdn()
 	
-
+	
 
 
 
@@ -49,28 +46,30 @@ func main(){
 	crtSh := &cert.CrtSh{NameService:"crt.sh", Domain:dominio, Url: urlCrt}
 	crt, err := ScanSubdomain(crtSh)
 	if(err != nil){
-		fmt.Println("iNTENATO")
-		intentos := 5
-		var ok atomic.Bool
-		ok.Store(false)
-		respCrt := make(chan domain.SubDomains)
-		go func(){fmt.Print("Espera.");for{time.Sleep(2000 * time.Millisecond);if(ok.Load() == true){break};fmt.Print(".")}}()
-		go func(){
-			for range intentos-1{
-				fmt.Print("|")
-				time.Sleep(5 * time.Second)
-				crt, err = ScanSubdomain(crtSh)
-				if(err == nil){
+		fmt.Println("Intentanto")
+		fmt.Println(err.Error())
+		return
+		// intentos := 5
+		// var ok atomic.Bool
+		// ok.Store(false)
+		// respCrt := make(chan domain.SubDomains)
+		// go func(){fmt.Print("Espera.");for{time.Sleep(2000 * time.Millisecond);if(ok.Load() == true){break};fmt.Print(".")}}()
+		// go func(){
+		// 	for range intentos-1{
+		// 		fmt.Print("|")
+		// 		time.Sleep(5 * time.Second)
+		// 		crt, err = ScanSubdomain(crtSh)
+		// 		if(err == nil){
 
-					ok.Store(true)
-					respCrt <- crt
-					break
-				}
-			}
-			respCrt <- domain.SubDomains{}
-			ok.Store(true)
-		}()
-		crt = <- respCrt
+		// 			ok.Store(true)
+		// 			respCrt <- crt
+		// 			break
+		// 		}
+		// 	}
+		// 	respCrt <- domain.SubDomains{}
+		// 	ok.Store(true)
+		// }()
+		// crt = <- respCrt
 		//fmt.Println(err)
 	}
 	
@@ -109,13 +108,13 @@ func main(){
 	
 	//Dominio padre
 	dominioPadre := domain.Domain{Name: dominio, Ip: func()[]net.IP{ r, _ := funcs.CheckIp(dominio, true);return r}()}
-	dominioPadre.CheckNs()
+	dominioPadre.FindCdn(&cdnList)
 	subdomains = append(subdomains, dominioPadre)
 	//Subdominios
 
 
 	
-	subdomains = Init(listClean)
+	subdomains = Init(listClean, &cdnList)
 
 
 	fmt.Println("\nResultados: ")
@@ -129,7 +128,7 @@ func main(){
 
 	end := time.Since(start)
 	fmt.Println("Tiempo de ejecucion :", end)
-	os.Exit(1)
+	//os.Exit(1)
 	//fmt.Println(funcs.CheckIp(dominio, false))
 	
 	
@@ -138,7 +137,7 @@ func main(){
 
 
 
-func Init(lista []string)[]domain.Domain{
+func Init(lista []string, cdnlist *[]IPs.Cdn)[]domain.Domain{
 	subdomains := []domain.Domain{}
 
 	dmain := make(chan *domain.Domain, 10)
@@ -166,7 +165,7 @@ func Init(lista []string)[]domain.Domain{
 						continue
 					}
 					domaiin := &domain.Domain{Name: x, Ip: ip }
-					domaiin.FindCdn()
+					domaiin.FindCdn(cdnlist)
 					//subdomains = append(subdomains, domaiin)
 					dmain <- domaiin
 					}
@@ -198,7 +197,7 @@ func Init(lista []string)[]domain.Domain{
 	for _, x := range lista{
 		ip, _ := funcs.CheckIp(x, true)
 		domaiin := domain.Domain{Name: x, Ip: ip }
-		domaiin.CheckNs()
+		domaiin.FindCdn(cdnlist)
 		subdomains = append(subdomains, domaiin)
 
 	}
