@@ -37,12 +37,12 @@ func (b *BunnyCdn)LoadIPsFromAPIBunny()[]string{
 	
 	resp, err := client.Get("https://bunnycdn.com/api/system/edgeserverlist")
 	if(err != nil){
-		fmt.Println(err)
+		//fmt.Println(err)
 		return []string{}
 	}
 	body, er := io.ReadAll(resp.Body)
 	if(er != nil){
-		fmt.Println(er)
+		//fmt.Println(er)
 		return []string{}
 	}
 
@@ -176,10 +176,14 @@ func (i *IpRanges)Load(){
 	bunnycdn.IpRange = bunnycdn.LoadIPsFromAPIBunny() 
 
 
-	// ----REGISTRAR CDNS--- ACA--
-	i.List = []Cdn{sucuri, cloudflare, fastly, akamai, cloudfront, google, bunnycdn}
+	// ----REGISTRAR CDNS--- ACA-- SI NO ESTA REGISTRADO NO SE 
+	
+	i.List = []Cdn{sucuri, cloudflare, fastly, akamai, cloudfront, google}
 	
 }
+
+
+
 
 func (i *IpRanges)GetListCdn() []Cdn{
 	return i.List
