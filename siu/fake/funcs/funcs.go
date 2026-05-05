@@ -88,8 +88,12 @@ func CheckNs(url string)[]string{
 
 
 
-func CheckCdn(ip net.IP, rangeIps[]string)bool{
+func CheckCdn(cdnName string,  ip net.IP, rangeIps []string)bool{
 
+	if(cdnName == "bunnycdn"){
+		return false // Seguridad, BUNNYCDN maneja IPs puras no rangos CIDR si el servicio es bunny esta funcion siempre devolvera false
+		//Para bunnyCdn hay otra funcion creada
+	}
 	for _, v := range(rangeIps){
 
 		
@@ -111,6 +115,22 @@ func CheckCdn(ip net.IP, rangeIps[]string)bool{
 }
 
 
+func CheckBunnyCDN(ip net.IP, cdnRange[]string)bool{
+
+	for _,v := range cdnRange{
+		if(ip.String() == v){
+			return true
+		}
+	}
+	return false
+}
+
+
+
+
+
+
+
 //Dividimos un array en pequenos chunks
 //Lo convertimos en un array bidimensional [[1,2,3], [4,5,6]]
 
@@ -130,16 +150,12 @@ func SplitArray(list []string, numSplit int)[][]string {
 		fin := final * i
 		chunk := list[indice : fin]
 	
-		//fmt.Println("Inicio: ", i, fin)
-		
 		if(resto != 0 && i == numSplit){ //Si hay restantes (resto) y es el ultimo chunk se anade los elementos a este ultimo 
 			for _, restante := range list[fin:]{
 				chunk = append(chunk, restante)
 			// 	fmt.Println(restante)
 			 }
-			// fmt.Println(list[fin:])
-			// fmt.Println("Si hay restante")
-			// fmt.Println(chunk)
+			
 		}
 
 		newArray = append(newArray, chunk)
@@ -164,3 +180,6 @@ func Parser[T any](content string)(T, error){
 	}
 	return data, nil
 }
+
+
+

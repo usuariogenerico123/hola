@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NexusFlow | Marketplace de Automatización Empresarial</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #050505;
+        }
+        .glass {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        .glow-cyan {
+            box-shadow: 0 0 20px rgba(34, 211, 238, 0.15);
+        }
+        .gradient-text {
+            background: linear-gradient(90deg, #22d3ee, #34d399);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .grid-pattern {
+            background-image: radial-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+            background-size: 40px 40px;
+        }
+    </style>
+</head>
+<body class="text-gray-300 antialiased selection:bg-cyan-500/30">
+
+    <!-- Navegación -->
+    <nav class="fixed top-0 w-full z-50 glass border-b border-white/5">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+            <div class="flex items-center gap-2">
+                <div class="w-10 h-10 bg-gradient-to-tr from-cyan-500 to-emerald-400 rounded-lg flex items-center justify-center">
+                    <svg class="w-6 h-6 text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+                </div>
+                <span class="text-2xl font-extrabold tracking-tighter text-white">NEXUS<span class="text-cyan-400">FLOW</span></span>
+            </div>
+            <div class="hidden md:flex items-center gap-8 font-medium">
+                <a href="#catalogo" class="hover:text-cyan-400 transition-colors">Catálogo</a>
+                <a href="#ventajas" class="hover:text-cyan-400 transition-colors">Por qué Nexus</a>
+                <a href="#documentacion" class="hover:text-cyan-400 transition-colors">Documentación</a>
+            </div>
+            <button class="bg-white text-black px-6 py-2.5 rounded-full font-bold hover:bg-cyan-400 transition-all active:scale-95">
+                Acceso Partner
+            </button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="relative pt-44 pb-32 overflow-hidden grid-pattern">
+        <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-cyan-500/10 blur-[120px] rounded-full -z-10"></div>
+        <div class="max-w-7xl mx-auto px-6 text-center">
+            <span class="inline-block px-4 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 text-sm font-semibold mb-6">
+                Automatización de Grado Industrial
+            </span>
+            <h1 class="text-5xl md:text-8xl font-extrabold text-white leading-tight mb-8">
+                No vendemos nodos.<br>Vendemos <span class="gradient-text tracking-tight">Sistemas.</span>
+            </h1>
+            <p class="text-xl text-gray-400 max-w-2xl mx-auto mb-12 leading-relaxed">
+                Flujos de n8n y Make ultra-documentados para empresas que no pueden permitirse fallos. Arquitectura real para problemas reales.
+            </p>
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+                <a href="#catalogo" class="w-full sm:w-auto bg-cyan-500 text-black px-10 py-4 rounded-2xl font-bold text-lg hover:bg-cyan-400 transition-all shadow-lg shadow-cyan-500/20">
+                    Explorar Marketplace
+                </a>
+                <button class="w-full sm:w-auto glass text-white px-10 py-4 rounded-2xl font-bold text-lg hover:bg-white/10 transition-all">
+                    Ver demo de Documentación
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Estadísticas Rápidas -->
+    <div class="max-w-7xl mx-auto px-6 py-12">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-8 p-10 glass rounded-[2rem]">
+            <div class="text-center">
+                <div class="text-3xl font-extrabold text-white mb-1">+2.4k</div>
+                <div class="text-sm text-gray-500 uppercase tracking-widest">Instalaciones</div>
+            </div>
+            <div class="text-center border-l border-white/5">
+                <div class="text-3xl font-extrabold text-white mb-1">99.9%</div>
+                <div class="text-sm text-gray-500 uppercase tracking-widest">Uptime Promedio</div>
+            </div>
+            <div class="text-center border-l border-white/5">
+                <div class="text-3xl font-extrabold text-white mb-1">500+</div>
+                <div class="text-sm text-gray-500 uppercase tracking-widest">Docs Técnicos</div>
+            </div>
+            <div class="text-center border-l border-white/5">
+                <div class="text-3xl font-extrabold text-white mb-1">15m</div>
+                <div class="text-sm text-gray-500 uppercase tracking-widest">Soporte Prom.</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Catálogo de Productos -->
+    <section id="catalogo" class="py-32">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
+                <div>
+                    <h2 class="text-4xl font-extrabold text-white mb-4">Soluciones Disponibles</h2>
+                    <p class="text-gray-400">Cada solución incluye JSON, Manual de Arquitectura y Guía de Resiliencia.</p>
+                </div>
+                <div class="flex gap-2">
+                    <button class="px-5 py-2 rounded-full bg-cyan-500 text-black font-bold text-sm">Todos</button>
+                    <button class="px-5 py-2 rounded-full glass hover:bg-white/5 text-sm">Finanzas</button>
+                    <button class="px-5 py-2 rounded-full glass hover:bg-white/5 text-sm">E-commerce</button>
+                    <button class="px-5 py-2 rounded-full glass hover:bg-white/5 text-sm">SaaS</button>
+                </div>
+            </div>
+
+            <!-- Grid de Tarjetas -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Producto 1 -->
+                <div class="group relative bg-white/5 rounded-[2rem] p-8 border border-white/5 hover:border-cyan-500/50 transition-all duration-500 glow-cyan">
+                    <div class="mb-6 flex justify-between items-start">
+                        <div class="w-14 h-14 bg-cyan-500/20 rounded-2xl flex items-center justify-center text-cyan-400">
+                            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+                        </div>
+                        <span class="text-xs font-bold bg-white text-black px-3 py-1 rounded-full italic">PREMIUM DOCS</span>
+                    </div>
+                    <h3 class="text-2xl font-bold text-white mb-4 group-hover:text-cyan-400 transition-colors">Sistema de Conciliación Bancaria</h3>
+                    <p class="text-gray-400 mb-8 leading-relaxed">Automatiza el cruce de pagos entre Stripe, PayPal y tu ERP con manejo de errores nivel bancario.</p>
+                    <ul class="space-y-3 mb-8 text-sm">
+                        <li class="flex items-center gap-2 text-emerald-400"><svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"></path></svg> n8n / Make.com</li>
+                        <li class="flex items-center gap-2 text-gray-500"><svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"></path></svg> PDF de 15 pág. incluido</li>
+                    </ul>
+                    <div class="flex items-center justify-between mt-auto">
+                        <span class="text-2xl font-extrabold text-white">$249<span class="text-sm font-normal text-gray-500">.00</span></span>
+                        <button onclick="openModal('Conciliación Bancaria')" class="bg-white/10 hover:bg-white text-white hover:text-black p-3 rounded-xl transition-all">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Producto 2 -->
+                <div class="group relative bg-white/5 rounded-[2rem] p-8 border border-white/5 hover:border-emerald-500/50 transition-all duration-500">
+                    <div class="mb-6 flex justify-between items-start">
+                        <div class="w-14 h-14 bg-emerald-500/20 rounded-2xl flex items-center justify-center text-emerald-400">
+                            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
+                        </div>
+                        <span class="text-xs font-bold bg-emerald-400 text-black px-3 py-1 rounded-full">POPULAR</span>
+                    </div>
+                    <h3 class="text-2xl font-bold text-white mb-4 group-hover:text-emerald-400 transition-colors">Onboarding de Clientes SaaS</h3>
+                    <p class="text-gray-400 mb-8 leading-relaxed">Sistema completo de KYC, creación de cuentas y Slack alerts. Incluye flujos de contingencia.</p>
+                    <ul class="space-y-3 mb-8 text-sm">
+                        <li class="flex items-center gap-2 text-emerald-400"><svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"></path></svg> n8n Master Flow</li>
+                        <li class="flex items-center gap-2 text-gray-500"><svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"></path></svg> Diagramas en Lucidchart</li>
+                    </ul>
+                    <div class="flex items-center justify-between mt-auto">
+                        <span class="text-2xl font-extrabold text-white">$185<span class="text-sm font-normal text-gray-500">.00</span></span>
+                        <button onclick="openModal('Onboarding SaaS')" class="bg-white/10 hover:bg-white text-white hover:text-black p-3 rounded-xl transition-all">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Producto 3 -->
+                <div class="group relative bg-white/5 rounded-[2rem] p-8 border border-white/5 hover:border-purple-500/50 transition-all duration-500">
+                    <div class="mb-6 flex justify-between items-start">
+                        <div class="w-14 h-14 bg-purple-500/20 rounded-2xl flex items-center justify-center text-purple-400">
+                            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                        </div>
+                    </div>
+                    <h3 class="text-2xl font-bold text-white mb-4 group-hover:text-purple-400 transition-colors">AI Sales Agent (Multi-Agent)</h3>
+                    <p class="text-gray-400 mb-8 leading-relaxed">Agentes que investigan leads, redactan correos y agendan en Google Calendar automáticamente.</p>
+                    <ul class="space-y-3 mb-8 text-sm">
+                        <li class="flex items-center gap-2 text-emerald-400"><svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"></path></svg> n8n + LangChain</li>
+                        <li class="flex items-center gap-2 text-gray-500"><svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"></path></svg> Guía de Prompts incluida</li>
+                    </ul>
+                    <div class="flex items-center justify-between mt-auto">
+                        <span class="text-2xl font-extrabold text-white">$420<span class="text-sm font-normal text-gray-500">.00</span></span>
+                        <button onclick="openModal('AI Sales Agent')" class="bg-white/10 hover:bg-white text-white hover:text-black p-3 rounded-xl transition-all">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Valor de la Documentación (Lo que te diferencia) -->
+    <section id="documentacion" class="py-32 bg-white/5 relative overflow-hidden">
+        <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
+            <div>
+                <h2 class="text-4xl font-extrabold text-white mb-6 leading-tight">El código es solo el 20%.<br>La <span class="text-cyan-400">arquitectura</span> lo es todo.</h2>
+                <p class="text-lg text-gray-400 mb-8 leading-relaxed">
+                    A diferencia de los "wrappers" de IA baratos, cada producto en NexusFlow pasa por un riguroso proceso de documentación técnica. No solo descargas un JSON, obtienes un activo empresarial.
+                </p>
+                <div class="space-y-6">
+                    <div class="flex gap-4">
+                        <div class="w-12 h-12 flex-shrink-0 bg-white/10 rounded-full flex items-center justify-center text-cyan-400 font-bold">1</div>
+                        <div>
+                            <h4 class="text-white font-bold mb-1">Manejo de Errores Avanzado</h4>
+                            <p class="text-sm text-gray-500">Nodos de contingencia y re-intentos configurados para cada paso crítico.</p>
+                        </div>
+                    </div>
+                    <div class="flex gap-4">
+                        <div class="w-12 h-12 flex-shrink-0 bg-white/10 rounded-full flex items-center justify-center text-cyan-400 font-bold">2</div>
+                        <div>
+                            <h4 class="text-white font-bold mb-1">Guía de Seguridad (Hardening)</h4>
+                            <p class="text-sm text-gray-500">Instrucciones claras para manejar variables de entorno y encriptación de datos.</p>
+                        </div>
+                    </div>
+                    <div class="flex gap-4">
+                        <div class="w-12 h-12 flex-shrink-0 bg-white/10 rounded-full flex items-center justify-center text-cyan-400 font-bold">3</div>
+                        <div>
+                            <h4 class="text-white font-bold mb-1">Manual de Despliegue</h4>
+                            <p class="text-sm text-gray-500">Pasos exactos para integrar con tus sistemas actuales sin romper nada.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="relative">
+                <div class="absolute -inset-1 bg-gradient-to-tr from-cyan-500 to-emerald-400 rounded-3xl blur opacity-30"></div>
+                <div class="relative glass rounded-3xl p-4 md:p-8">
+                    <!-- Simulación de un PDF de Documentación -->
+                    <div class="bg-gray-900 rounded-xl p-6 border border-white/10 shadow-2xl">
+                        <div class="flex items-center gap-3 mb-8 border-b border-white/5 pb-4">
+                            <div class="w-8 h-8 bg-red-500/20 text-red-500 rounded flex items-center justify-center text-xs font-bold uppercase tracking-widest">PDF</div>
+                            <span class="text-xs text-gray-500 font-mono italic">TECH_SPEC_V2.0.pdf</span>
+                        </div>
+                        <div class="space-y-4">
+                            <div class="h-4 bg-white/10 rounded w-1/3"></div>
+                            <div class="h-2 bg-white/5 rounded w-full"></div>
+                            <div class="h-2 bg-white/5 rounded w-full"></div>
+                            <div class="h-2 bg-white/5 rounded w-5/6"></div>
+                            <div class="grid grid-cols-2 gap-4 mt-8">
+                                <div class="h-24 bg-cyan-500/10 border border-cyan-500/20 rounded-lg flex items-center justify-center flex-col gap-2">
+                                    <div class="w-8 h-8 rounded bg-cyan-400/20"></div>
+                                    <div class="w-12 h-2 bg-cyan-400/40 rounded"></div>
+                                </div>
+                                <div class="h-24 bg-emerald-500/10 border border-emerald-500/20 rounded-lg flex items-center justify-center flex-col gap-2">
+                                    <div class="w-8 h-8 rounded bg-emerald-400/20"></div>
+                                    <div class="w-12 h-2 bg-emerald-400/40 rounded"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mt-8 pt-4 border-t border-white/5 flex justify-between">
+                            <div class="h-4 bg-white/10 rounded w-20"></div>
+                            <div class="h-4 bg-cyan-500/40 rounded w-12"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-20 border-t border-white/5">
+        <div class="max-w-7xl mx-auto px-6 text-center">
+            <div class="flex items-center justify-center gap-2 mb-8">
+                <div class="w-8 h-8 bg-white/10 rounded flex items-center justify-center">
+                    <svg class="w-4 h-4 text-white font-bold" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+                </div>
+                <span class="text-xl font-bold text-white tracking-tighter uppercase">NexusFlow Marketplace</span>
+            </div>
+            <div class="flex justify-center gap-8 mb-12 text-sm text-gray-500">
+                <a href="#" class="hover:text-white transition-colors">Términos</a>
+                <a href="#" class="hover:text-white transition-colors">Licencia Comercial</a>
+                <a href="#" class="hover:text-white transition-colors">Soporte</a>
+                <a href="#" class="hover:text-white transition-colors">Vender</a>
+            </div>
+            <p class="text-xs text-gray-600">&copy; 2024 NexusFlow. Diseñado para arquitectos de automatización.</p>
+        </div>
+    </footer>
+
+    <!-- Modal Simple (JS) -->
+    <div id="modal" class="fixed inset-0 z-[100] hidden flex items-center justify-center p-6 bg-black/80 backdrop-blur-sm">
+        <div class="glass w-full max-w-lg rounded-3xl p-10 relative animate-in fade-in zoom-in duration-300">
+            <button onclick="closeModal()" class="absolute top-6 right-6 text-gray-500 hover:text-white">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+            </button>
+            <div id="modal-content" class="text-center">
+                <!-- Content injected via JS -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function openModal(title) {
+            const modal = document.getElementById('modal');
+            const content = document.getElementById('modal-content');
+            content.innerHTML = `
+                <div class="w-20 h-20 bg-cyan-500/20 rounded-2xl flex items-center justify-center text-cyan-400 mx-auto mb-6">
+                    <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                </div>
+                <h3 class="text-3xl font-extrabold text-white mb-4">${title}</h3>
+                <p class="text-gray-400 mb-8">Esta es una vista previa de la solución. Incluye el archivo de importación y el dossier técnico de arquitectura.</p>
+                <div class="flex flex-col gap-3">
+                    <button class="bg-cyan-500 text-black font-bold py-4 rounded-xl hover:bg-cyan-400 transition-all">Adquirir Solución</button>
+                    <button class="text-gray-500 hover:text-white transition-colors py-2">Descargar Índice Técnico (Gratis)</button>
+                </div>
+            `;
+            modal.classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('modal');
+            modal.classList.add('hidden');
+            document.body.style.overflow = 'auto';
+        }
+
+        // Cerrar modal si se hace clic fuera
+        window.onclick = function(event) {
+            const modal = document.getElementById('modal');
+            if (event.target == modal) {
+                closeModal();
+            }
+        }
+    </script>
+</body>
+</html>

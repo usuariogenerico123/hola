@@ -1,12 +1,12 @@
 package style
 
+import "fmt"
 
 
 
 
-var (
 
-	Banner string = YELLOW +  `
+var Banner string = fmt.Sprintf(`%s
 888b     d888 d8b 888      d8b           .d8888b.  8888888b.  888b    888 
 8888b   d8888 Y8P 888      Y8P          d88P  Y88b 888  "Y88b 8888b   888 
 88888b.d88888     888                   888    888 888    888 88888b  888 
@@ -15,9 +15,8 @@ var (
 888  Y8P  888 888 888888K  888 "Y8888b. 888    888 888    888 888  Y88888 
 888   "   888 888 888 "88b 888      X88 Y88b  d88P 888  .d88P 888   Y8888 
 888       888 888 888  888 888  88888P'  "Y8888P"  8888888P"  888    Y888 
-by : telegram @pes528
-	` + END
-)
+by:%s telegram %s%s@pes528 %s`,GREEN,END,WHITE, SUB, END  )
+
 
 
 

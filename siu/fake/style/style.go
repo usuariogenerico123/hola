@@ -12,8 +12,9 @@ var (
 	GREEN string = "\033[1;32m"
 	RED string = "\033[1;31m"
 	END string = "\033[0m"
-	RANDOMCOLOR string 
+	CYAN string = "\033[1;36m"
 	SUB string = "\033[4m"
+	WHITE string = "\033[1;37m"
 
 
 )

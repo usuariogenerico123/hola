@@ -117,8 +117,8 @@ func main(){
 	var subdomains []domain.Domain
 	
 	start := time.Now()
-	
-	fmt.Println("\n","Starting:")
+	fmt.Print("\n")
+	fmt.Println("Starting:")
 	
 	
 
@@ -141,9 +141,10 @@ func main(){
 
 
 	fmt.Println("\nResults: ")
-	for _, v := range subdomains{
+	for n, v := range subdomains{
 		time.Sleep(100 * time.Millisecond)
-		fmt.Println(style.YELLOW, v.Name, style.END ,style.GREEN, v.Ip, style.END ,"\n",style.Randcolor(),"Cdn: >", style.END, v.Cdns)
+		fmt.Println(n+1,style.YELLOW, v.Name, style.END ,style.GREEN, v.Ip, style.END) 
+		fmt.Println(style.Randcolor() + "   Cdn: >" + style.END, v.Cdns)
 		fmt.Println("--------------------------------------------------------------------------------------------------")
 	}
 

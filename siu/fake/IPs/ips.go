@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"io"
 	"time"
-
 	"net/http"
 	"os"
 	"regexp"
@@ -178,7 +177,7 @@ func (i *IpRanges)Load(){
 
 	// ----REGISTRAR CDNS--- ACA-- SI NO ESTA REGISTRADO NO SE 
 	
-	i.List = []Cdn{sucuri, cloudflare, fastly, akamai, cloudfront, google}
+	i.List = []Cdn{sucuri, cloudflare, fastly, akamai, cloudfront, google, bunnycdn}
 	
 }
 

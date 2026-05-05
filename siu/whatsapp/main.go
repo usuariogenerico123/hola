@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"net/http"
 	"time"
 	"wp/src"
 )
@@ -26,11 +27,13 @@ func main(){
 	Send(te)
 
 	go func(){
-		fmt.Print("Espera.")
+		fmt.Printf("Tiempo de ejecucion S: %d", 1)
+		cont := 0
 		for{
 
-			time.Sleep(500 * time.Millisecond)
-			fmt.Print(".")
+			time.Sleep(1000 * time.Millisecond)
+			fmt.Printf("\rTiempo de ejecucion S: %d", cont)
+			cont ++
 		}
 	}()
 	
@@ -39,6 +42,18 @@ func main(){
 	s :=<- c 
 	fmt.Print(s)
 
+
+
+	serv := &http.Server{
+		Addr: ":3006",
+	}
+
+	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+		http.ServeFile(w, r, "./templates/index.html")
+	})
+
+	fmt.Println("Servidor iniciado")
+	serv.ListenAndServe()
 }
 
 func Send(c src.Notification){
