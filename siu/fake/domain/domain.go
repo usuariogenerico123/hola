@@ -65,12 +65,3 @@ func (d *Domain) scanCdn(cdnName string, cdnRange []string){
 
 
 
-
-// func (c *Domain) GetIp() []net.IP{
-// 	ip := funcs.CheckIp(c.Name)
-// 	return ip
-// }
-
-// func (d *Domain) CheckSubdomains(){
-// 	d.subdomains = append(d.subdomains, )
-// }

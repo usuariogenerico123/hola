@@ -8,6 +8,7 @@ import (
 	"fake/dnsmikis/hacktarget"
 	"fake/dnsmikis/rapiddns"
 	"fake/dnsmikis/urlscan"
+	"fake/menu"
 
 	//"sync/atomic"
 	"fake/domain"
@@ -24,21 +25,30 @@ import (
 
 
 func main(){
+
+	ips := &IPs.IpRanges{IPsPath: "./IPs"}
+	ips.Load()
+	cdnList := ips.GetListCdn()
+
 	fmt.Println(style.Banner)
 	//dominio := input("Escribe el nombre de tu dominio ->: ")
+	
+	if(os.Args[1] == "-ip"){
+		menu.CheckCdnOnly(os.Args[2], &cdnList)
+		return
+	}
+
 	dominio := os.Args[1]
+	
+
 	if(len(funcs.CheckNs(dominio)) == 0){
 		fmt.Printf(style.RED + "Dominio: %s no existe\n"+style.END , dominio  )
 		return
 	}
 
-	ips := &IPs.IpRanges{IPsPath: "./IPs"}
-	ips.Load()
-	cdnList := ips.GetListCdn()
 	
 	
-
-
+	
 
 	urlCrt := fmt.Sprintf("https://crt.sh/?q=%s&output=json", dominio)
 	urlHtarget := fmt.Sprintf("https://api.hackertarget.com/hostsearch/?q=%s", dominio)
