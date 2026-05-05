@@ -6,7 +6,7 @@ package style
 
 var (
 
-	Banner string = GREEN +  `
+	Banner string = YELLOW +  `
 888b     d888 d8b 888      d8b           .d8888b.  8888888b.  888b    888 
 8888b   d8888 Y8P 888      Y8P          d88P  Y88b 888  "Y88b 8888b   888 
 88888b.d88888     888                   888    888 888    888 88888b  888 

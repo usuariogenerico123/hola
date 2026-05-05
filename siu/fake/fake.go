@@ -6,16 +6,18 @@ import (
 	"fake/dnsmikis"
 	"fake/dnsmikis/cert"
 	"fake/dnsmikis/hacktarget"
+	"fake/dnsmikis/rapiddns"
 	"fake/dnsmikis/urlscan"
+
 	//"sync/atomic"
-	"net"
-	"sync"
 	"fake/domain"
 	"fake/funcs"
 	"fake/style"
-	"time"
 	"fmt"
+	"net"
 	"os"
+	"sync"
+	"time"
 )
 
 
@@ -41,6 +43,8 @@ func main(){
 	urlCrt := fmt.Sprintf("https://crt.sh/?q=%s&output=json", dominio)
 	urlHtarget := fmt.Sprintf("https://api.hackertarget.com/hostsearch/?q=%s", dominio)
 	urlUrlScanio := fmt.Sprintf("https://urlscan.io/api/v1/search/?q=domain:%s", dominio)
+	urlRapidDns := fmt.Sprintf("https://rapiddns.io/subdomain/%s?full=1", dominio)
+
 	
 	
 	crtSh := &cert.CrtSh{NameService:"crt.sh", Domain:dominio, Url: urlCrt}
@@ -98,6 +102,15 @@ func main(){
 	}
 
 
+	rapid := &rapiddns.RapidDns{NameService: "rapiddns", Domain: dominio, Url: urlRapidDns}
+	rapidns, errp := ScanSubdomain(rapid)
+	if(errp != nil){
+		fmt.Println("RpDns >", errp.Error())
+		rapidns = domain.SubDomains{}
+	}
+	
+
+
 
 
 	
@@ -111,6 +124,7 @@ func main(){
 
 	subdomainsStrings := append(crt.SubDomains, ht.SubDomains...)
 	subdomainsStrings = append(subdomainsStrings, sci.SubDomains...)
+	subdomainsStrings = append(subdomainsStrings, rapidns.SubDomains...)
 	listClean := funcs.DeleteRepeat(subdomainsStrings)
 	
 

@@ -3,7 +3,7 @@ package rapiddns
 import (
 	"fake/dnsmikis/requests"
 	"fake/domain"
-	"fmt"
+	//"fmt"
 	"io"
 	"regexp"
 	"strings"
@@ -11,14 +11,14 @@ import (
 
 
 
-type RapidDdns struct{
+type RapidDns struct{
 	NameService string 
 	Domain string 
 	Url string 
 }
 
 
-func (r *RapidDdns) CheckSubdomain()(domain.SubDomains, error){
+func (r *RapidDns) CheckSubdomain()(domain.SubDomains, error){
 	var result domain.SubDomains
 	resp, err := requests.Get(r.Url)
 	if(err != nil){
@@ -32,17 +32,18 @@ func (r *RapidDdns) CheckSubdomain()(domain.SubDomains, error){
 		return result, err
 	}
 	
-	//fmt.Println(string(body))
-	list := []string{}
-
- 	data :=  regexp.MustCompile(`<td>([a-zA-Z0-9._-]+\.[a-zA-Z]{2,})</td>`)
-	jijo := data.FindAllSubmatch([]byte(body), -1)
-	for _, v := range jijo{
-		//dominio := strings.ReplaceAll(string(v[0]), "</td>", "")
-		fmt.Println(strings.Replace())
-		list = append(list, strings.Replace(string(v[0]), "</td>", "", 6))
+ 	re :=  regexp.MustCompile(`<td>([a-zA-Z0-9._-]+\.[a-zA-Z]{2,})</td>`)
+	listRegex := re.FindAllSubmatch([]byte(body), -1)
+	for _, v := range listRegex{
+		dominio := strings.ReplaceAll(string(v[0]), "</td>", "")
+		dominio = strings.ReplaceAll(dominio, "<td>", "")
+		result.SubDomains = append(result.SubDomains, dominio)
 	}
 	//fmt.Println(list)
 	return result, nil
 	
+}
+
+func (r *RapidDns)ServiceName()string{
+	return r.NameService
 }
