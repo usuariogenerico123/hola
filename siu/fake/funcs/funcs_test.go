@@ -2,8 +2,9 @@ package funcs
 
 import (
 	//"fake/IPs"
+	"fake/IPs"
 	"fmt"
-	//"net"
+	"net"
 	"testing"
 )
 
@@ -20,9 +21,28 @@ func TestCheckIp(t *testing.T){
 
 
 func TestCheckCdn(t *testing.T){
-	// ji := CheckCdn(net.IPv4(162,159,138,52), IPs.CLOUDFLARE)
-	// fmt.Println("Is cloudflare")
-	// fmt.Println(ji)
+	ranges := &IPs.IpRanges{IPsPath: "../IPs/"}
+	ranges.Load()
+	cdnForTest := "bunnycdn"
+
+
+	var cdn []string
+	for _, v := range ranges.List{
+		fmt.Println(v.GetName())
+		if(v.GetName() == cdnForTest){
+			cdn = append(cdn, v.GetIps()...)
+		}
+	} 
+
+	ji := CheckCdn(net.IPv4(79,127,213,212), cdn)
+	if(ji){
+		fmt.Println("is: ", cdnForTest)
+		fmt.Println(ji)
+	}else{
+		fmt.Println("No")
+	}
+	
+	
 
 }
 

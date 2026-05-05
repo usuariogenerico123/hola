@@ -1,13 +1,17 @@
 package IPs
 
 import (
-
+	"fmt"
 	"testing"
 )
 
 
 
-func TestGetIps(t *testing.T){
+func TestLoadIPsFromAPIBunny(t *testing.T){
+	bunny := &BunnyCdn{Name: "Bunny"}
+
+	bunny.IpRange = bunny.LoadIPsFromAPIBunny()
+	fmt.Println(bunny.IpRange)
 	// resp := GetIps("./IPs/")
 	// fmt.Println(resp[5])
 }
