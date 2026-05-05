@@ -46,38 +46,46 @@ func main(){
 	crtSh := &cert.CrtSh{NameService:"crt.sh", Domain:dominio, Url: urlCrt}
 	crt, err := ScanSubdomain(crtSh)
 	if(err != nil){
-		fmt.Println("Intentanto")
-		fmt.Println(err.Error())
-		return
-		// intentos := 5
-		// var ok atomic.Bool
-		// ok.Store(false)
-		// respCrt := make(chan domain.SubDomains)
-		// go func(){fmt.Print("Espera.");for{time.Sleep(2000 * time.Millisecond);if(ok.Load() == true){break};fmt.Print(".")}}()
-		// go func(){
-		// 	for range intentos-1{
-		// 		fmt.Print("|")
-		// 		time.Sleep(5 * time.Second)
-		// 		crt, err = ScanSubdomain(crtSh)
-		// 		if(err == nil){
+		//fmt.Println("Intentando: 1")
+		
+		intentos := 10
+		//var ok atomic.Bool
+		//ok.Store(false)
+		respCrt := make(chan domain.SubDomains)
+		//go func(){fmt.Print("Espera.");for{time.Sleep(2000 * time.Millisecond);if(ok.Load() == true){break};fmt.Print(".")}}()
+		go func(){
+			ok := false
+			for v := range intentos-1{
+				fmt.Printf("\rTrying: %s%d%s", style.Randcolor() ,v ,style.END)
+				time.Sleep(1 * time.Second)
+				crt, err = ScanSubdomain(crtSh)
+				if(len(crt.SubDomains) > 0){
+					//fmt.Print(crt.SubDomains)
+					//ok.Store(true)
+					respCrt <- crt
+					fmt.Printf("\r%s", "---- ok ----")
+					ok = true
+					
+					break
+				}
+			}
+			
+			if(ok == false){
+				fmt.Printf("\r%s", err.Error())
+				respCrt <- domain.SubDomains{}
 
-		// 			ok.Store(true)
-		// 			respCrt <- crt
-		// 			break
-		// 		}
-		// 	}
-		// 	respCrt <- domain.SubDomains{}
-		// 	ok.Store(true)
-		// }()
-		// crt = <- respCrt
-		//fmt.Println(err)
+			}
+			//ok.Store(true)
+		}()
+		crt = <- respCrt
+		
 	}
 	
 	
 	hackTarget := &hacktarget.Htarget{NameService:"hackertarget", Domain: dominio, Url: urlHtarget}
 	ht, errt := ScanSubdomain(hackTarget)
 	if(errt != nil){
-		fmt.Println(errt.Error())
+		fmt.Println("\nhtarget> ",errt.Error())
 		ht = domain.SubDomains{}
 	}
 	
@@ -85,7 +93,8 @@ func main(){
 	scanIo := &urlscan.UrlScan{NameService: "urlscan.io", Domain: dominio, Url: urlUrlScanio}
 	sci, errs := ScanSubdomain(scanIo)
 	if(errs != nil){
-		fmt.Println(errs.Error())
+		fmt.Println("urlscan > ", errs.Error())
+		sci = domain.SubDomains{}
 	}
 
 
@@ -96,7 +105,7 @@ func main(){
 	
 	start := time.Now()
 	
-	fmt.Println("Iniciando")
+	fmt.Println("\n","Starting:")
 	
 	
 
@@ -117,17 +126,16 @@ func main(){
 	subdomains = Init(listClean, &cdnList)
 
 
-	fmt.Println("\nResultados: ")
+	fmt.Println("\nResults: ")
 	for _, v := range subdomains{
 		time.Sleep(100 * time.Millisecond)
-		//fmt.Println("-------------------------------------------------------------------------------------------")
-		fmt.Println(style.YELLOW, v.Name, style.END ,style.GREEN, v.Ip, style.END ,"\n", v.Cdns)
+		fmt.Println(style.YELLOW, v.Name, style.END ,style.GREEN, v.Ip, style.END ,"\n",style.Randcolor(),"Cdn: >", style.END, v.Cdns)
 		fmt.Println("--------------------------------------------------------------------------------------------------")
 	}
 
 
 	end := time.Since(start)
-	fmt.Println("Tiempo de ejecucion :", end)
+	fmt.Println("Execution time:", end)
 	//os.Exit(1)
 	//fmt.Println(funcs.CheckIp(dominio, false))
 	
@@ -148,7 +156,7 @@ func Init(lista []string, cdnlist *[]IPs.Cdn)[]domain.Domain{
 
 
 	if(len(lista) > limitElements){
-		fmt.Print("Acelerando....")
+		fmt.Println("Accelerating....")
 		time.Sleep(1 * time.Second)
 		chunksSubdomains := funcs.SplitArray(lista, numThreads)
 
@@ -211,7 +219,7 @@ func ScanSubdomain(s dnsmikis.Scan)(domain.SubDomains, error){
 	resp, err := s.CheckSubdomain()
 	if(err != nil){
 		
-		//fmt.Println(s.ServiceName())
+		//fmt.Printf("\r%s",s.ServiceName())
 		return resp, err
 	}
 	return resp, nil
