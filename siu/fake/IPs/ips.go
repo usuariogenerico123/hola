@@ -1,14 +1,17 @@
 package IPs
 
 import (
+	
+	
 	"fmt"
 	"io"
-	"time"
 	"net/http"
 	"os"
 	"regexp"
 	"strings"
+	"time"
 )
+
 
 type Cdn interface{
 	GetName()string

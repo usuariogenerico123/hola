@@ -1,0 +1,38 @@
+
+
+
+services:
+  db:
+    image: mariadb:10.6.4-focal
+
+    environment:
+      - MYSQL_ROOT_PASSWORD=admin
+      - MYSQL_DATABASE=wordpress
+      - MYSQL_USER=wordpress
+      - MYSQL_PASSWORD=wordpress
+    
+    expose:
+      - 3306
+      - 33060
+    
+    volumes:
+      - db_data:/var/lib/mysql
+
+
+  wordpress:
+    image: wordpress:latest
+    
+    volumes:
+      - wp_data:/var/www/html 
+
+    ports:
+      - 3007:80
+    environment:
+      - WORDPRESS_DB_HOST=db
+      - WORDPRESS_DB_USER=wordpress
+      - WORDPRESS_DB_PASSWORD=wordpress
+      - WORDPRESS_DB_NAME=wordpress
+
+volumes:
+  wp_data:
+  db_data:
