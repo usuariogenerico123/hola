@@ -21,7 +21,7 @@ import (
 //---------Buscar cdn de una sola ip
 func CheckCdnOnly(ips *[]IPs.Cdn,ip string){
 	fmt.Println("")
-	fmt.Println("SEARCHING IP CDN >:",  ip)
+	fmt.Println("SEARCHING CDN >:",  ip)
 	time.Sleep(1 * time.Second)
 	for _,v := range *ips{
 		b := funcs.CheckBunnyCDN(net.ParseIP(ip), v.GetIps())
@@ -45,7 +45,7 @@ func CheckCdnOnly(ips *[]IPs.Cdn,ip string){
 
 
 
-func CheckAllSubdomain(cdnList *[]IPs.Cdn , dominio string){
+func CheckAllSubdomain(cdnList *[]IPs.Cdn , dominio string, savefile bool){
 	
 	if(len(funcs.CheckNs(dominio)) == 0){
 		fmt.Printf(style.RED + "Domain: %s not found\n"+style.END , dominio  )
@@ -126,7 +126,7 @@ func CheckAllSubdomain(cdnList *[]IPs.Cdn , dominio string){
 	
 	start := time.Now()
 	//fmt.Print("\n")
-	fmt.Printf("\r%s", "Starting:")
+	fmt.Printf("\r%s", "Starting:\t\t")
 	
 	
 	//-----UNIENDO LISTAS DE SUBDOMINIOS-------
@@ -149,13 +149,22 @@ func CheckAllSubdomain(cdnList *[]IPs.Cdn , dominio string){
 	subdomains = Start(listClean, cdnList)
 
 
+	//----guardar si es requerido---------
+	if(savefile){
+		var data string
+		for _, v := range subdomains{
+			data += fmt.Sprintf("%s, %s, cdn:> %s\n", v.Name, v.Ip, v.Cdns)
+		}
+		funcs.Save("subdomains-"+dominio+".txt", &data)
+	}
+	
 	//-------RESULTADOS
 	fmt.Printf("\r%s","------------------------Results--------------------------\n")
 	for n, v := range subdomains{
 		time.Sleep(100 * time.Millisecond)
 		fmt.Println(n+1,style.YELLOW, v.Name, style.END ,style.GREEN, v.Ip, style.END) 
 		fmt.Println(style.Randcolor() + "   Cdn: >" + style.END, v.Cdns)
-		fmt.Println("---------------------------------------------------------------------------")
+		fmt.Println("-----------------------------------------------------------------")
 	}
 	end := time.Since(start)
 	fmt.Println("Execution time:", end)
@@ -256,9 +265,11 @@ Options:
 	--ip <IP>           "Scann all CDN for this ip"
 	--domain <DOMAIN>   "Scann all CDN and Subdomains for this domain"	
 	--help		    "Help"
+	[--save] [-s]      "Save all results in a file" 
 Example:
 	app --ip  123.123.123.123
 	app --domain  mydomain.com
+	app -ip 123.43.45.34 --save 
 `
 }
 

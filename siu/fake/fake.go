@@ -6,38 +6,68 @@ import (
 	"fake/style"
 	"fmt"
 	"os"
-	"os/exec"
+	//
 )
 
 
 
 
 func main(){
-	cmd, _ := exec.Command("clear").Output()
-	fmt.Println(string(cmd))
+	
+	fmt.Println(style.Banner)
+	
+	SaveinfFile := false
+	option := os.Args
+	if(len(option) < 2){
+		fmt.Println()
+		fmt.Println("Invalid option, please type --help")
+		fmt.Println()
+
+		return
+	}
+	for _, v := range option{
+		if(v == "--save" || v == "-s"){
+			SaveinfFile = true
+		}
+	}
+
 	ips := &IPs.IpRanges{IPsPath: "./IPs"}
 	ips.Load()
 	cdnList := ips.GetListCdn()
 
-
-	fmt.Println(style.Banner)
+	switch option[1]{
 	
-
-	option := os.Args[1]
-	switch option{
 	case "--ip":
-		menu.CheckCdnOnly(&cdnList, os.Args[2])
+		
+		if(len(option) < 3){
+			fmt.Println()
+			fmt.Println("Invalid <argument>, please type --help")
+			fmt.Println()
+			return
+		}
+		menu.CheckCdnOnly(&cdnList, option[2])	
+
 		
 	case "--domain":
-		menu.CheckAllSubdomain(&cdnList, os.Args[2])
+		if(len(option) < 3){
+			fmt.Println()
+			fmt.Println("Invalid <argument>, please type --help")
+			fmt.Println()
+			return
+		}
+		menu.CheckAllSubdomain(&cdnList, os.Args[2], SaveinfFile)
 		
 	case "--help":
 		fmt.Println(menu.Help())
+		
 
 	default:
 		fmt.Println("\nInvalid option, please type --help")
-
+		fmt.Println()
 	}
+
+
+	
 	
 
 	

@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"math/rand"
+	"os"
 
 	"net"
 
@@ -180,6 +181,31 @@ func Parser[T any](content string)(T, error){
 	}
 	return data, nil
 }
+
+
+
+func Save(filename string, content *string){
+	// var data string
+
+	// for _, v := range content{
+	// 	//info := fmt.Sprintf("------------------------------\n%s %s %s", v.Name, v.Ip, v.Cdns)
+	// 	data += string(info)
+	// }
+	resp, err := os.OpenFile(filename, os.O_CREATE | os.O_RDWR | os.O_APPEND, 0644)
+	if(err != nil){
+		fmt.Println(err)
+	}
+	defer resp.Close()
+
+	resp.Write([]byte(*content))
+
+}
+
+
+
+
+
+
 
 
 
