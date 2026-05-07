@@ -14,7 +14,7 @@ import (
 
 func main(){
 	
-	fmt.Println(style.Banner)
+	fmt.Println(style.Banner2)
 	
 	SaveinfFile := false
 	option := os.Args
