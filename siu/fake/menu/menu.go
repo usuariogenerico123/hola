@@ -33,7 +33,9 @@ func CheckCdnOnly(ips *[]IPs.Cdn,ip string){
 
 		cdn := funcs.CheckCdn(v.GetName(), net.ParseIP(ip), v.GetIps())
 		if(cdn){
-			fmt.Println(v.GetName())
+			fmt.Println()
+			fmt.Println("CDN: "+style.GREEN + v.GetName() + style.END)
+			fmt.Println()
 			return
 		}
 	}
