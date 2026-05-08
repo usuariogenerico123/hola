@@ -31,7 +31,8 @@ func main(){
 		}
 	}
 
-	ips := &IPs.IpRanges{IPsPath: "./IPs"}
+	//ips := &IPs.IpRanges{IPsPath: "./IPs/IPfiles"}
+	ips := &IPs.IpRanges{}
 	ips.Load()
 	cdnList := ips.GetListCdn()
 

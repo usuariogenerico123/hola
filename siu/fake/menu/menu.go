@@ -267,7 +267,7 @@ Options:
 	--ip <IP>           "Scann all CDN for this ip"
 	--domain <DOMAIN>   "Scann all CDN and Subdomains for this domain"	
 	--help		    "Help"
-	[--save] [-s]      "Save all results in a file" 
+	[--save] [-s]      "Save results in a file (./subdomains-your-domain.txt)" 
 Example:
 	app --ip  123.123.123.123
 	app --domain  mydomain.com

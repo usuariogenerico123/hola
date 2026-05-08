@@ -3,13 +3,14 @@ package IPs
 import (
 	
 	
-	"fmt"
+	//"fmt"
 	"io"
 	"net/http"
-	"os"
+	//"os"
 	"regexp"
 	"strings"
 	"time"
+	"embed"
 )
 
 
@@ -146,18 +147,22 @@ type IpRanges struct{
 	IPsPath string
 }
 
-func (i *IpRanges) getIpsFromFile(fileName string)[]string{
-	data, err := os.ReadFile(i.IPsPath + "/"+fileName)
-	if(err != nil){
-		fmt.Println("Error lectura .txt", err)
-		return []string{""}
-	}
-	return strings.Fields(string(data))
-}
+
+// func (i *IpRanges) getIpsFromFile(fileName string)[]string{
+// 	//data, err := os.ReadFile(i.IPsPath + "/"+fileName)
+// 	data , err := File.ReadFile(i.IPsPath +"/"+fileName)
+// 	if(err != nil){
+// 		fmt.Println("Error lectura .txt", err)
+// 		return []string{""}
+// 	}
+// 	return strings.Fields(string(data))
+// }
 
 
 
 //---------------Cargar cdns-- REGISTRAR EN LA LISTA
+//go:embed IPfiles/*
+var File embed.FS
 func (i *IpRanges)Load(){
 	sucuri := &Sucuri{Name: "sucuri", IpRange: []string{"192.88.134.0/23","185.93.228.0/22","66.248.200.0/22","208.109.0.0/22"}}
 
@@ -166,19 +171,25 @@ func (i *IpRanges)Load(){
 	fastly := &Fastly{Name: "fastly", IpRange: []string{"23.235.32.0/20","43.249.72.0/22","103.244.50.0/24","103.245.222.0/23","103.245.224.0/24","104.156.80.0/20","140.248.64.0/18","140.248.128.0/17","146.75.0.0/17","151.101.0.0/16","157.52.64.0/18","167.82.0.0/17","167.82.128.0/20","167.82.160.0/20","167.82.224.0/20","172.111.64.0/18","185.31.16.0/22","199.27.72.0/21","199.232.0.0/16"}}
 	
 	akamai := &Akamai{Name:"akamai"}
-	akamai.IpRange = i.getIpsFromFile(akamai.GetName() + ".txt" )
+	ipakm, _ := File.ReadFile("./IPfiles/akamai.txt")
+	akamai.IpRange = strings.Fields(string(ipakm))
+	//akamai.IpRange = i.getIpsFromFile(akamai.GetName() + ".txt" )
 
 	cloudfront := &Aws{Name:"cloudfront"}
-	cloudfront.IpRange = i.getIpsFromFile(cloudfront.GetName() + ".txt")
+	ipcloud, _ := File.ReadFile("./IPfiles/cloudfront.txt")
+	cloudfront.IpRange = strings.Fields(string(ipcloud))
+	//cloudfront.IpRange = i.getIpsFromFile(cloudfront.GetName() + ".txt")
 
 	google :=  &Google{Name:"google"}
-	google.IpRange =i.getIpsFromFile( google.GetName() + ".txt")
+	ipgoo, _ := File.ReadFile("./IPfiles/google.txt")
+	google.IpRange = strings.Fields(string(ipgoo))
+	//google.IpRange =i.getIpsFromFile( google.GetName() + ".txt")
 
 	bunnycdn := &BunnyCdn{Name: "bunnycdn"}
 	bunnycdn.IpRange = bunnycdn.LoadIPsFromAPIBunny() 
 
 
-	// ----REGISTRAR CDNS--- ACA-- SI NO ESTA REGISTRADO NO SE 
+	// ----REGISTRAR CDNS--- ACA-- SI NO ESTA REGISTRADO NO SE EJECUTAN
 	
 	i.List = []Cdn{sucuri, cloudflare, fastly, akamai, cloudfront, google, bunnycdn}
 	

@@ -5,18 +5,21 @@ import "fmt"
 
 
 
-const AUTOR string = "@z"
+const AUTOR string = "@COLTJJ"
 
 
 var Banner2 string = fmt.Sprintf(`%s
 
- ______ _______ _______  _____  __   _ _______ ______  __   _
-|_____/ |______ |       |     | | \  | |       |     \ | \  |
-|    \_ |______ |_____  |_____| |  \_| |_____  |_____/ |  \_|
-                                                              
-	SubDomain & CDN Scanner%s
-	%sby:telegram > %s  %s
-`, GREEN, END, YELLOW, AUTOR, END )
+                                                               
+▄▄▄▄▄▄▄                            ▄▄▄▄▄▄▄ ▄▄▄▄▄▄   ▄▄▄    ▄▄▄ 
+███▀▀███▄                         ███▀▀▀▀▀ ███▀▀██▄ ████▄  ███ 
+███▄▄███▀ ▄█▀█▄ ▄████ ▄███▄ ████▄ ███      ███  ███ ███▀██▄███ 
+███▀▀██▄  ██▄█▀ ██    ██ ██ ██ ██ ███      ███  ███ ███  ▀████ 
+███  ▀███ ▀█▄▄▄ ▀████ ▀███▀ ██ ██ ▀███████ ██████▀  ███    ███                                                                                                                            %s                                                           
+%sSubDomain & CDN Scanner
+by:telegram  %s  
+https://github.com/mig-af%s
+`, GREEN, END, WHITE, AUTOR, END )
 
 
 
