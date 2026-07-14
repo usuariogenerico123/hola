@@ -93,10 +93,10 @@ func pinggyTunnel(port string, system string)(*exec.Cmd, string, error){
 
 	}()
 	fmt.Println("Espera consiguiendo datos...")
+	
+	time.Sleep(10 * time.Second)
 	fmt.Println(info.String())
 	fmt.Println(errors.String())
-	time.Sleep(10 * time.Second)
-	
 	return cmd, info.String(), nil
 }
 
