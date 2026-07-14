@@ -15,7 +15,7 @@ func Menu(){
 
 
 	systemName := runtime.GOOS
-
+	fmt.Println("Os: "+systemName)
 	Loop:
 	for {
 		fmt.Println(Options())
@@ -39,7 +39,7 @@ func Menu(){
 			}
 			fmt.Println("Iniciando..")
 			services.ExposeOnlyPort(port, systemName)
-			
+
 		case "2":
 			fmt.Print("Escribe la ruta a tu proyecto (/index.html): ")
 			_, err := fmt.Scanln(&path)
