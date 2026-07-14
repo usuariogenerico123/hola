@@ -77,7 +77,7 @@ func pinggyTunnel(port string, system string)(*exec.Cmd, string, error){
 
 	command := fmt.Sprintf(`ssh -i ./pinggyKey -T -p 443 -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -R0:127.0.0.1:%s free.pinggy.io`, port)
 	if(system == "windows"){
-		command = fmt.Sprintf(`ssh -i .\pinggyKey -T -p 443 -o StrictHostKeyChecking=no -R0:127.0.0.1:%s free.pinggy.io`, port)
+		command = fmt.Sprintf(`ssh -i .\pinggyKey -T -p 443 -o StrictHostKeyChecking=no -o UserKnownHostsFile=NULL -R0:127.0.0.1:%s free.pinggy.io`, port)
 	}
 	c := strings.Split(command, " ")
 	
