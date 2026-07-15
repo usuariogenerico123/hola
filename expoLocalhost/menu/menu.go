@@ -38,7 +38,7 @@ func Menu(){
 				continue
 			}
 			fmt.Println("Iniciando..")
-			services.ExposeOnlyPort(port, systemName)
+			services.CreateTunnel(port, systemName)
 
 		case "2":
 			fmt.Print("Escribe la ruta a tu proyecto (/index.html): ")
