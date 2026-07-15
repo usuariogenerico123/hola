@@ -1,6 +1,7 @@
 package menu
 
 import (
+	"expo/config"
 	"expo/funcs"
 	"expo/services"
 	"fmt"
@@ -9,12 +10,12 @@ import (
 
 
 func Menu(){
+	
 	var option string
 	var port string
 	var path string
-
-
 	systemName := runtime.GOOS
+
 	fmt.Println("Os: "+systemName)
 	Loop:
 	for {
@@ -56,9 +57,13 @@ func Menu(){
 				fmt.Println("\nPuerto invalido")
 				continue
 			}
-			services.ExposeServer(port, path)
+			services.ExposeServer(port, path, systemName)
 			fmt.Println("Exit")
 			break Loop
+		
+		case "3":
+			Config()
+		
 		case "0":
 			fmt.Println("Exit")
 			break Loop
@@ -82,6 +87,7 @@ func Options()string{
 Opciones:
 1: Crear url de acceso  (tu servidor ya debe estar encendido)
 2: Crear servidor + url de acceso (crea un servidor para tu proyecto)
+3: Configurar token de ngrok
 0: Salir
 	`, Green, End)
 
@@ -102,3 +108,18 @@ var (
 )
 
 
+func Config(){
+	var token string
+	fmt.Println("Configurar token")
+	fmt.Print("Inserta tu token ngrok: ")
+	_, er := fmt.Scanln(&token)
+	if(er != nil){
+		fmt.Println(Red+"Datos incorrectos"+End)
+		return 
+	}
+	fmt.Println("Configurando token...")
+	if(!funcs.CreateTokenFile(config.NameTokenFile, token)){
+		return
+	}
+	fmt.Println(Green+"Token configurado con exito."+End)
+}

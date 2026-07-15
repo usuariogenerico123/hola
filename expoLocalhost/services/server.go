@@ -29,7 +29,7 @@ func Server(port string, path string, ok chan bool){
 			return 
 		}
 	}()
-	time.Sleep(5 * time.Second)
+	time.Sleep(7 * time.Second)
 	if(serverErro != nil){
 		ok <- false
 	}
