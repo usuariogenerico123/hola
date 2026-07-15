@@ -1,6 +1,7 @@
 package menu
 
 import (
+	"context"
 	"expo/config"
 	"expo/funcs"
 	"expo/services"
@@ -23,7 +24,9 @@ func Menu(){
 		fmt.Print("Elige una opcion: ")
 		_, err := fmt.Scanln(&option)
 		if(err != nil){
-			fmt.Println("erro: scan ",err)
+			//fmt.Println("erro: scan ",err)
+			
+			continue
 		}
 
 		switch option {
@@ -39,7 +42,7 @@ func Menu(){
 				continue
 			}
 			fmt.Println("Iniciando..")
-			services.CreateTunnel(port, systemName)
+			services.CreateTunnel(port, systemName, context.Background())
 
 		case "2":
 			fmt.Print("Escribe la ruta a tu proyecto (/index.html): ")

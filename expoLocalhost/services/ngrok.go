@@ -4,18 +4,19 @@ import (
 	"context"
 	"expo/config"
 	"fmt"
+	"net/http"
 	"os"
-	
+	"os/signal"
+	"syscall"
 	"path/filepath"
-	
 
 	"golang.ngrok.com/ngrok/v2"
 )
 
 
-func CreateTunnel(port string, system string){
+func CreateTunnel(port string, system string, ctx context.Context){
 	
-	ctx := context.Background()
+	
 	token, erro := LoadToken()
 	if(erro != nil){
 		fmt.Println(erro)
@@ -42,20 +43,28 @@ func CreateTunnel(port string, system string){
 }
 
 func ExposeServer(port string, path string, system string){
+	ctx:= context.Background()
 	
-	ok := make(chan bool)
 	
-	go Server(port, path, ok)
-	serverOk := <- ok
-	if(!serverOk){
-		fmt.Println("No se pudo crear el servidor verifica si el puerto no esta ocupado")
-		return
-	}
+	stop := make(chan os.Signal, 1)
+
+	infoServer := make(chan *http.Server)
+	go Server(port, path, infoServer)
+	server := <- infoServer
+	
 	fmt.Println("Servidor iniciado en el puerto:"+port)
-	fmt.Println("Servidor: http://127.0.0.1:"+port)
+	fmt.Println("Servidor: http://127.0.0.1"+server.Addr)
 
-	CreateTunnel(port, system)
 
+
+	CreateTunnel(port, system, ctx)
+
+
+	//close server 
+	signal.Notify(stop, syscall.SIGINT, os.Interrupt)
+	<- stop 
+	fmt.Println("Server stoped")
+	server.Shutdown(ctx)
 
 
 }

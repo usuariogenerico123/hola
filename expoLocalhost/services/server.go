@@ -1,47 +1,36 @@
 package services
 
 import (
-	"context"
 	"fmt"
 	"net/http"
-	"os"
-	"os/signal"
-	"syscall"
+
 	"time"
 )
 
 
-func Server(port string, path string, ok chan bool){
+func Server(port string, path string, serv chan *http.Server ){
 	
-	cancel := make(chan os.Signal, 1)
+	
 	mux := http.NewServeMux()
 	mux.Handle("/", http.FileServer(http.Dir(path)))
 	server := &http.Server{
 		Addr: ":"+port,
 		Handler: mux,
+		ReadTimeout: 3 * time.Second,
 	}
-	var serverErro error
+	
 	go func(){
-		serverErro = server.ListenAndServe()
+		serverErro := server.ListenAndServe()
 		if( serverErro!= nil ){
+			//panic(serverErro)
 			fmt.Println(serverErro)
-			
-			return 
+			return
 		}
 	}()
-	time.Sleep(7 * time.Second)
-	if(serverErro != nil){
-		ok <- false
-	}
-	ok <-true
+	time.Sleep(10 * time.Second)
+	serv <- server
+		
 	
-	signal.Notify(cancel, syscall.SIGINT, syscall.SIGTERM, os.Interrupt)
-	ctx, canc := context.WithTimeout(context.Background(), 7 * time.Second)
-	defer canc()
-	<- cancel
-	fmt.Println("Servidor cerrado")
-	server.Shutdown(ctx)
-
 }
 
 
