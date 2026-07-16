@@ -17,11 +17,11 @@ func Menu(){
 	var path string
 	systemName := runtime.GOOS
 
-	fmt.Println("Os: "+systemName)
+	
 	Loop:
 	for {
 		fmt.Println(Options())
-		fmt.Print("Elige una opcion: ")
+		fmt.Print(Yellow+"Elige una opcion: "+End)
 		_, err := fmt.Scanln(&option)
 		if(err != nil){
 			//fmt.Println("erro: scan ",err)
@@ -34,11 +34,11 @@ func Menu(){
 			fmt.Print("Escribe el numero de puerto ejem(3001): ")
 			_, err := fmt.Scanln(&port)
 			if(err != nil){
-				fmt.Println("Algo salio mal")
+				fmt.Println(Red+"Algo salio mal"+End)
 				continue
 			}
 			if(!funcs.VerifyNumber(port)){
-				fmt.Println("\nPuerto invalido")
+				fmt.Println(Red+"\nPuerto invalido"+End)
 				continue
 			}
 			fmt.Println("Iniciando..")
@@ -48,16 +48,31 @@ func Menu(){
 			fmt.Print("Escribe la ruta a tu proyecto (/index.html): ")
 			_, err := fmt.Scanln(&path)
 			if(err != nil){
-				fmt.Println("Algo salio mal")
+				fmt.Println(Red+"Algo salio mal"+End)
 				continue
 			}
+			if(!funcs.VerifyIndexPage(path)){
+				var yesNo string
+				fmt.Println("No se encontro el archivo index.html en la ruta:"+path)
+				fmt.Print("Estas seguro que desear continuar? Y=yes N=no: ")
+				_, r := fmt.Scanln(&yesNo)
+				if(r != nil){fmt.Println(Red+"Opcion incorrecta"+Red);continue}
+				ok, er := funcs.VerifyYesNo(yesNo)
+				if(er != nil){fmt.Println(Red+er.Error()+End)}
+				if(!ok){
+					fmt.Println("Cancelado..")
+					continue
+				}
+
+			}
+
 			fmt.Print("Escribe el numero de puerto que quieres abrir ejem(3007): ")
 			_, err = fmt.Scanln(&port)
-			if(err != nil){fmt.Println("Algo salio mal")
+			if(err != nil){fmt.Println(Red+"Algo salio mal"+End)
 				continue
 			}
 			if(!funcs.VerifyNumber(port)){
-				fmt.Println("\nPuerto invalido")
+				fmt.Println(Red+"\nPuerto invalido"+End)
 				continue
 			}
 			services.ExposeServer(port, path, systemName)
@@ -71,7 +86,7 @@ func Menu(){
 			fmt.Println("Exit")
 			break Loop
 		default:
-			fmt.Println("Opcion incorrecta")
+			fmt.Println(Red+"Opcion incorrecta"+End)
 		}
 	
 		
@@ -85,14 +100,17 @@ func Menu(){
 
 func Options()string{
 	options := fmt.Sprintf(`
-| %sEXPONE TU LOCALHOST A INTERNET %s|
-
+Os:%s %s
+┌───────────────────────────────────────┐
+│  EXPONE TU LOCALHOST A INTERNET       │
+│  Autor:github.com/mig-af              │
+└───────────────────────────────────────┘%s
 Opciones:
-1: Crear url de acceso  (tu servidor ya debe estar encendido)
-2: Crear servidor + url de acceso (crea un servidor para tu proyecto)
-3: Configurar token de ngrok
-0: Salir
-	`, Green, End)
+[1]: Crear url de acceso  (tu servidor ya debe estar encendido)
+[2]: Crear servidor + url de acceso (crea un servidor para tu proyecto)
+[3]: Configurar token de ngrok
+[0]: Salir
+	`, runtime.GOOS, Green, End)
 
 	return options
 }

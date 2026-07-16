@@ -35,7 +35,7 @@ func CreateTunnel(port string, system string, ctx context.Context){
 		return
 	}
 	
-	fmt.Println("TUNEL CREADO CON EXITO EN EL PUERTO: "+port)
+	fmt.Println("\033[0;32mTUNEL CREADO CON EXITO EN EL PUERTO: "+port+"\033[0m")
 	fmt.Println("Link: "+"\033[0;33m"+ln.URL().String()+"\033[0m")
 	fmt.Println("Presiona CTRL+C para detener")
 	<- ln.Done()
@@ -53,7 +53,7 @@ func ExposeServer(port string, path string, system string){
 	server := <- infoServer
 	
 	fmt.Println("Servidor iniciado en el puerto:"+port)
-	fmt.Println("Servidor: http://127.0.0.1"+server.Addr)
+	fmt.Println("Servidor:\033[0;32m http://127.0.0.1"+server.Addr+"\033[0m")
 
 
 

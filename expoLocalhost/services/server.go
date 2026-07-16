@@ -1,6 +1,7 @@
 package services
 
 import (
+	"expo/config"
 	"fmt"
 	"net/http"
 
@@ -13,9 +14,12 @@ func Server(port string, path string, serv chan *http.Server ){
 	
 	mux := http.NewServeMux()
 	mux.Handle("/", http.FileServer(http.Dir(path)))
+
+	filter := config.Filter(mux)
+
 	server := &http.Server{
 		Addr: ":"+port,
-		Handler: mux,
+		Handler: filter,
 		ReadTimeout: 3 * time.Second,
 	}
 	

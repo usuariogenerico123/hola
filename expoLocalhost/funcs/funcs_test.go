@@ -52,3 +52,38 @@ func TestVerifyNumber(t *testing.T){
 	}
 
 }
+
+
+func TestVerifyYesNo(t *testing.T){
+
+		
+		cases := []struct{
+			Name string 
+			Palabra string 
+			Expected bool
+			ExpectedError bool
+		}{
+			{"Palabra larga","Computadora", false, true},
+			{"Palabra Si", "Yes", true, false},
+			{"Palabra No", "no", false, false},
+			{"Espacio vacio", "", false, true},
+			
+		}
+
+		for _, v := range cases{
+			t.Run(v.Name, func(t *testing.T) {
+				resp, err := VerifyYesNo(v.Palabra)
+				if(resp != v.Expected){
+					t.Fatal("Error")
+				}
+				if(err !=nil && v.ExpectedError == true){
+					
+				}else if( err ==nil && v.ExpectedError == false){
+
+				}else{
+					t.Fatal(err)
+				}
+			})
+		}
+
+}

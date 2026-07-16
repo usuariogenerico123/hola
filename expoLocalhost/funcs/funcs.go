@@ -1,12 +1,14 @@
 package funcs
 
 import (
+	"errors"
 	"expo/config"
 	"fmt"
 	"os"
 	"path/filepath"
 	"reflect"
 	"strconv"
+	"strings"
 )
 
 func VerifyDataType(from any, to any)bool{
@@ -14,9 +16,15 @@ func VerifyDataType(from any, to any)bool{
 }
 
 func VerifyNumber(port string)bool{
+	InvalidPorts := []string{"22", "443", "25", "21", "53", "445"}
 	_, err := strconv.Atoi(port)
 	if(err != nil){
 		return false
+	}
+	for _, v := range(InvalidPorts){
+		if(v == port){
+			return false
+		}
 	}
 	return true
 }
@@ -79,3 +87,32 @@ func GetPathToken()string{
 
 }
 
+func VerifyIndexPage(path string)bool{
+	_, resp := os.Stat(path+"/index.html")
+	if(resp != nil){
+		return false
+	}
+	return true
+}
+
+func VerifyYesNo(data string)(bool, error){
+	dat := strings.ToLower(data)
+	words := []string{"yes", "y", "no", "n"}
+	inList:=false
+	for _,v :=range words{
+		
+		if(v == dat){
+			inList=true
+			break
+		}
+	}
+	if(!inList){
+		return false, errors.New("Error N|Y")
+	}
+
+	if(dat == "y" || dat == "yes" ){
+		return true, nil
+	}
+	
+	return false, nil
+}
