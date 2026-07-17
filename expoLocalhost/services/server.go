@@ -20,9 +20,12 @@ func Server(port string, path string, serv chan *http.Server ){
 	server := &http.Server{
 		Addr: ":"+port,
 		Handler: filter,
-		ReadTimeout: 3 * time.Second,
+		ReadHeaderTimeout: 5 * time.Second,
+		ReadTimeout: 5 * time.Second,
+		WriteTimeout: 5* time.Second,
+		IdleTimeout: 30 * time.Second,
 	}
-	
+	defer server.Close()
 	go func(){
 		serverErro := server.ListenAndServe()
 		if( serverErro!= nil ){
